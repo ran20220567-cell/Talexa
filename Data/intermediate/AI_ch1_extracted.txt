@@ -1,0 +1,748 @@
+
+
+===== PAGE 1 =====
+
+1
+INTRODUCTION
+In which we try to explain why we consider artiﬁcial intelligence to be a subject
+most worthy of study, and in which we try to decide what exactly it is, this being a
+good thing to decide before embarking.
+We call ourselves Homo sapiens—man the wise—because our intelligence is so important
+INTELLIGENCE
+to us. For thousands of years, we have tried to understand how we think; that is, how a mere
+handful of matter can perceive, understand, predict, and manipulate a world far larger and
+more complicated than itself. The ﬁeld of artiﬁcial intelligence, or AI, goes further still: it
+ARTIFICIAL
+INTELLIGENCE
+attempts not just to understand but also to build intelligent entities.
+AI is one of the newest ﬁelds in science and engineering. Work started in earnest soon
+after World War II, and the name itself was coined in 1956. Along with molecular biology,
+AI is regularly cited as the “ﬁeld I would most like to be in” by scientists in other disciplines.
+A student in physics might reasonably feel that all the good ideas have already been taken by
+Galileo, Newton, Einstein, and the rest. AI, on the other hand, still has openings for several
+full-time Einsteins and Edisons.
+AI currently encompasses a huge variety of subﬁelds, ranging from the general (learning
+and perception) to the speciﬁc, such as playing chess, proving mathematical theorems, writing
+poetry, driving a car on a crowded street, and diagnosing diseases. AI is relevant to any
+intellectual task; it is truly a universal ﬁeld.
+1.1
+WHAT IS AI?
+We have claimed that AI is exciting, but we have not said what it is. In Figure 1.1 we see
+eight deﬁnitions of AI, laid out along two dimensions. The deﬁnitions on top are concerned
+with thought processes and reasoning, whereas the ones on the bottom address behavior. The
+deﬁnitions on the left measure success in terms of ﬁdelity to human performance, whereas
+the ones on the right measure against an ideal performance measure, called rationality. A
+RATIONALITY
+system is rational if it does the “right thing,” given what it knows.
+Historically, all four approaches to AI have been followed, each by different people
+with different methods. A human-centered approach must be in part an empirical science, in-
+1
+
+
+===== PAGE 2 =====
+
+2
+Chapter
+1.
+Introduction
+Thinking Humanly
+Thinking Rationally
+“The exciting new effort to make comput-
+ers think . . . machines with minds, in the
+full and literal sense.” (Haugeland, 1985)
+“The study of mental faculties through the
+use of computational models.”
+(Charniak and McDermott, 1985)
+“[The automation of] activities that we
+associate with human thinking, activities
+such as decision-making, problem solv-
+ing, learning . . .” (Bellman, 1978)
+“The study of the computations that make
+it possible to perceive, reason, and act.”
+(Winston, 1992)
+Acting Humanly
+Acting Rationally
+“The art of creating machines that per-
+form functions that require intelligence
+when performed by people.” (Kurzweil,
+1990)
+“Computational Intelligence is the study
+of the design of intelligent agents.” (Poole
+et al., 1998)
+“The study of how to make computers do
+things at which, at the moment, people are
+better.” (Rich and Knight, 1991)
+“AI . . . is concerned with intelligent be-
+havior in artifacts.” (Nilsson, 1998)
+Figure 1.1
+Some deﬁnitions of artiﬁcial intelligence, organized into four categories.
+volving observations and hypotheses about human behavior. A rationalist1 approach involves
+a combination of mathematics and engineering. The various group have both disparaged and
+helped each other. Let us look at the four approaches in more detail.
+1.1.1
+Acting humanly: The Turing Test approach
+The Turing Test, proposed by Alan Turing (1950), was designed to provide a satisfactory
+TURING TEST
+operational deﬁnition of intelligence. A computer passes the test if a human interrogator, after
+posing some written questions, cannot tell whether the written responses come from a person
+or from a computer. Chapter 26 discusses the details of the test and whether a computer would
+really be intelligent if it passed. For now, we note that programming a computer to pass a
+rigorously applied test provides plenty to work on. The computer would need to possess the
+following capabilities:
+• natural language processing to enable it to communicate successfully in English;
+NATURAL LANGUAGE
+PROCESSING
+• knowledge representation to store what it knows or hears;
+KNOWLEDGE
+REPRESENTATION
+• automated reasoning to use the stored information to answer questions and to draw
+AUTOMATED
+REASONING
+new conclusions;
+• machine learning to adapt to new circumstances and to detect and extrapolate patterns.
+MACHINE LEARNING
+1 By distinguishing between human and rational behavior, we are not suggesting that humans are necessarily
+“irrational” in the sense of “emotionally unstable” or “insane.” One merely need note that we are not perfect:
+not all chess players are grandmasters; and, unfortunately, not everyone gets an A on the exam. Some systematic
+errors in human reasoning are cataloged by Kahneman et al. (1982).
+
+
+===== PAGE 3 =====
+
+Section 1.1.
+What Is AI?
+3
+Turing’s test deliberately avoided direct physical interaction between the interrogator and the
+computer, because physical simulation of a person is unnecessary for intelligence. However,
+the so-called total Turing Test includes a video signal so that the interrogator can test the
+TOTAL TURING TEST
+subject’s perceptual abilities, as well as the opportunity for the interrogator to pass physical
+objects “through the hatch.” To pass the total Turing Test, the computer will need
+• computer vision to perceive objects, and
+COMPUTER VISION
+• robotics to manipulate objects and move about.
+ROBOTICS
+These six disciplines compose most of AI, and Turing deserves credit for designing a test
+that remains relevant 60 years later. Yet AI researchers have devoted little effort to passing
+the Turing Test, believing that it is more important to study the underlying principles of in-
+telligence than to duplicate an exemplar. The quest for “artiﬁcial ﬂight” succeeded when the
+Wright brothers and others stopped imitating birds and started using wind tunnels and learn-
+ing about aerodynamics. Aeronautical engineering texts do not deﬁne the goal of their ﬁeld
+as making “machines that ﬂy so exactly like pigeons that they can fool even other pigeons.”
+1.1.2
+Thinking humanly: The cognitive modeling approach
+If we are going to say that a given program thinks like a human, we must have some way of
+determining how humans think. We need to get inside the actual workings of human minds.
+There are three ways to do this: through introspection—trying to catch our own thoughts as
+they go by; through psychological experiments—observing a person in action; and through
+brain imaging—observing the brain in action. Once we have a sufﬁciently precise theory of
+the mind, it becomes possible to express the theory as a computer program. If the program’s
+input–output behavior matches corresponding human behavior, that is evidence that some of
+the program’s mechanisms could also be operating in humans. For example, Allen Newell
+and Herbert Simon, who developed GPS, the “General Problem Solver” (Newell and Simon,
+1961), were not content merely to have their program solve problems correctly. They were
+more concerned with comparing the trace of its reasoning steps to traces of human subjects
+solving the same problems. The interdisciplinary ﬁeld of cognitive science brings together
+COGNITIVE SCIENCE
+computer models from AI and experimental techniques from psychology to construct precise
+and testable theories of the human mind.
+Cognitive science is a fascinating ﬁeld in itself, worthy of several textbooks and at least
+one encyclopedia (Wilson and Keil, 1999). We will occasionally comment on similarities or
+differences between AI techniques and human cognition. Real cognitive science, however, is
+necessarily based on experimental investigation of actual humans or animals. We will leave
+that for other books, as we assume the reader has only a computer for experimentation.
+In the early days of AI there was often confusion between the approaches: an author
+would argue that an algorithm performs well on a task and that it is therefore a good model
+of human performance, or vice versa. Modern authors separate the two kinds of claims;
+this distinction has allowed both AI and cognitive science to develop more rapidly. The two
+ﬁelds continue to fertilize each other, most notably in computer vision, which incorporates
+neurophysiological evidence into computational models.
+
+
+===== PAGE 4 =====
+
+4
+Chapter
+1.
+Introduction
+1.1.3
+Thinking rationally: The “laws of thought” approach
+The Greek philosopher Aristotle was one of the ﬁrst to attempt to codify “right thinking,” that
+is, irrefutable reasoning processes. His syllogisms provided patterns for argument structures
+SYLLOGISM
+that always yielded correct conclusions when given correct premises—for example, “Socrates
+is a man; all men are mortal; therefore, Socrates is mortal.” These laws of thought were
+supposed to govern the operation of the mind; their study initiated the ﬁeld called logic.
+LOGIC
+Logicians in the 19th century developed a precise notation for statements about all kinds
+of objects in the world and the relations among them. (Contrast this with ordinary arithmetic
+notation, which provides only for statements about numbers.) By 1965, programs existed
+that could, in principle, solve any solvable problem described in logical notation. (Although
+if no solution exists, the program might loop forever.) The so-called logicist tradition within
+LOGICIST
+artiﬁcial intelligence hopes to build on such programs to create intelligent systems.
+There are two main obstacles to this approach. First, it is not easy to take informal
+knowledge and state it in the formal terms required by logical notation, particularly when
+the knowledge is less than 100% certain. Second, there is a big difference between solving
+a problem “in principle” and solving it in practice. Even problems with just a few hundred
+facts can exhaust the computational resources of any computer unless it has some guidance
+as to which reasoning steps to try ﬁrst. Although both of these obstacles apply to any attempt
+to build computational reasoning systems, they appeared ﬁrst in the logicist tradition.
+1.1.4
+Acting rationally: The rational agent approach
+An agent is just something that acts (agent comes from the Latin agere, to do). Of course,
+AGENT
+all computer programs do something, but computer agents are expected to do more: operate
+autonomously, perceive their environment, persist over a prolonged time period, adapt to
+change, and create and pursue goals. A rational agent is one that acts so as to achieve the
+RATIONAL AGENT
+best outcome or, when there is uncertainty, the best expected outcome.
+In the “laws of thought” approach to AI, the emphasis was on correct inferences. Mak-
+ing correct inferences is sometimes part of being a rational agent, because one way to act
+rationally is to reason logically to the conclusion that a given action will achieve one’s goals
+and then to act on that conclusion. On the other hand, correct inference is not all of ration-
+ality; in some situations, there is no provably correct thing to do, but something must still be
+done. There are also ways of acting rationally that cannot be said to involve inference. For
+example, recoiling from a hot stove is a reﬂex action that is usually more successful than a
+slower action taken after careful deliberation.
+All the skills needed for the Turing Test also allow an agent to act rationally. Knowledge
+representation and reasoning enable agents to reach good decisions. We need to be able to
+generate comprehensible sentences in natural language to get by in a complex society. We
+need learning not only for erudition, but also because it improves our ability to generate
+effective behavior.
+The rational-agent approach has two advantages over the other approaches. First, it
+is more general than the “laws of thought” approach because correct inference is just one
+of several possible mechanisms for achieving rationality. Second, it is more amenable to
+
+
+===== PAGE 5 =====
+
+Section 1.2.
+The Foundations of Artiﬁcial Intelligence
+5
+scientiﬁc development than are approaches based on human behavior or human thought. The
+standard of rationality is mathematically well deﬁned and completely general, and can be
+“unpacked” to generate agent designs that provably achieve it. Human behavior, on the other
+hand, is well adapted for one speciﬁc environment and is deﬁned by, well, the sum total
+of all the things that humans do. This book therefore concentrates on general principles
+of rational agents and on components for constructing them. We will see that despite the
+apparent simplicity with which the problem can be stated, an enormous variety of issues
+come up when we try to solve it. Chapter 2 outlines some of these issues in more detail.
+One important point to keep in mind: We will see before too long that achieving perfect
+rationality—always doing the right thing—is not feasible in complicated environments. The
+computational demands are just too high. For most of the book, however, we will adopt the
+working hypothesis that perfect rationality is a good starting point for analysis. It simpliﬁes
+the problem and provides the appropriate setting for most of the foundational material in
+the ﬁeld. Chapters 5 and 17 deal explicitly with the issue of limited rationality—acting
+LIMITED
+RATIONALITY
+appropriately when there is not enough time to do all the computations one might like.
+1.2
+THE FOUNDATIONS OF ARTIFICIAL INTELLIGENCE
+In this section, we provide a brief history of the disciplines that contributed ideas, viewpoints,
+and techniques to AI. Like any history, this one is forced to concentrate on a small number
+of people, events, and ideas and to ignore others that also were important. We organize the
+history around a series of questions. We certainly would not wish to give the impression that
+these questions are the only ones the disciplines address or that the disciplines have all been
+working toward AI as their ultimate fruition.
+1.2.1
+Philosophy
+• Can formal rules be used to draw valid conclusions?
+• How does the mind arise from a physical brain?
+• Where does knowledge come from?
+• How does knowledge lead to action?
+Aristotle (384–322 B.C.), whose bust appears on the front cover of this book, was the ﬁrst
+to formulate a precise set of laws governing the rational part of the mind. He developed an
+informal system of syllogisms for proper reasoning, which in principle allowed one to gener-
+ate conclusions mechanically, given initial premises. Much later, Ramon Lull (d. 1315) had
+the idea that useful reasoning could actually be carried out by a mechanical artifact. Thomas
+Hobbes (1588–1679) proposed that reasoning was like numerical computation, that “we add
+and subtract in our silent thoughts.” The automation of computation itself was already well
+under way. Around 1500, Leonardo da Vinci (1452–1519) designed but did not build a me-
+chanical calculator; recent reconstructions have shown the design to be functional. The ﬁrst
+known calculating machine was constructed around 1623 by the German scientist Wilhelm
+Schickard (1592–1635), although the Pascaline, built in 1642 by Blaise Pascal (1623–1662),
+
+
+===== PAGE 6 =====
+
+6
+Chapter
+1.
+Introduction
+is more famous. Pascal wrote that “the arithmetical machine produces effects which appear
+nearer to thought than all the actions of animals.” Gottfried Wilhelm Leibniz (1646–1716)
+built a mechanical device intended to carry out operations on concepts rather than numbers,
+but its scope was rather limited. Leibniz did surpass Pascal by building a calculator that
+could add, subtract, multiply, and take roots, whereas the Pascaline could only add and sub-
+tract. Some speculated that machines might not just do calculations but actually be able to
+think and act on their own. In his 1651 book Leviathan, Thomas Hobbes suggested the idea
+of an “artiﬁcial animal,” arguing “For what is the heart but a spring; and the nerves, but so
+many strings; and the joints, but so many wheels.”
+It’s one thing to say that the mind operates, at least in part, according to logical rules, and
+to build physical systems that emulate some of those rules; it’s another to say that the mind
+itself is such a physical system. Ren´e Descartes (1596–1650) gave the ﬁrst clear discussion
+of the distinction between mind and matter and of the problems that arise. One problem with
+a purely physical conception of the mind is that it seems to leave little room for free will:
+if the mind is governed entirely by physical laws, then it has no more free will than a rock
+“deciding” to fall toward the center of the earth. Descartes was a strong advocate of the power
+of reasoning in understanding the world, a philosophy now called rationalism, and one that
+RATIONALISM
+counts Aristotle and Leibnitz as members. But Descartes was also a proponent of dualism.
+DUALISM
+He held that there is a part of the human mind (or soul or spirit) that is outside of nature,
+exempt from physical laws. Animals, on the other hand, did not possess this dual quality;
+they could be treated as machines. An alternative to dualism is materialism, which holds
+MATERIALISM
+that the brain’s operation according to the laws of physics constitutes the mind. Free will is
+simply the way that the perception of available choices appears to the choosing entity.
+Given a physical mind that manipulates knowledge, the next problem is to establish
+the source of knowledge. The empiricism movement, starting with Francis Bacon’s (1561–
+EMPIRICISM
+1626) Novum Organum,2 is characterized by a dictum of John Locke (1632–1704): “Nothing
+is in the understanding, which was not ﬁrst in the senses.” David Hume’s (1711–1776) A
+Treatise of Human Nature (Hume, 1739) proposed what is now known as the principle of
+induction: that general rules are acquired by exposure to repeated associations between their
+INDUCTION
+elements. Building on the work of Ludwig Wittgenstein (1889–1951) and Bertrand Russell
+(1872–1970), the famous Vienna Circle, led by Rudolf Carnap (1891–1970), developed the
+doctrine of logical positivism. This doctrine holds that all knowledge can be characterized by
+LOGICAL POSITIVISM
+logical theories connected, ultimately, to observation sentences that correspond to sensory
+OBSERVATION
+SENTENCES
+inputs; thus logical positivism combines rationalism and empiricism.3 The conﬁrmation the-
+ory of Carnap and Carl Hempel (1905–1997) attempted to analyze the acquisition of knowl-
+CONFIRMATION
+THEORY
+edge from experience. Carnap’s book The Logical Structure of the World (1928) deﬁned an
+explicit computational procedure for extracting knowledge from elementary experiences. It
+was probably the ﬁrst theory of mind as a computational process.
+2 The Novum Organum is an update of Aristotle’s Organon, or instrument of thought. Thus Aristotle can be
+seen as both an empiricist and a rationalist.
+3 In this picture, all meaningful statements can be veriﬁed or falsiﬁed either by experimentation or by analysis
+of the meaning of the words. Because this rules out most of metaphysics, as was the intention, logical positivism
+was unpopular in some circles.
+
+
+===== PAGE 7 =====
+
+Section 1.2.
+The Foundations of Artiﬁcial Intelligence
+7
+The ﬁnal element in the philosophical picture of the mind is the connection between
+knowledge and action. This question is vital to AI because intelligence requires action as well
+as reasoning. Moreover, only by understanding how actions are justiﬁed can we understand
+how to build an agent whose actions are justiﬁable (or rational). Aristotle argued (in De Motu
+Animalium) that actions are justiﬁed by a logical connection between goals and knowledge of
+the action’s outcome (the last part of this extract also appears on the front cover of this book,
+in the original Greek):
+But how does it happen that thinking is sometimes accompanied by action and sometimes
+not, sometimes by motion, and sometimes not? It looks as if almost the same thing
+happens as in the case of reasoning and making inferences about unchanging objects. But
+in that case the end is a speculative proposition . . . whereas here the conclusion which
+results from the two premises is an action. . . . I need covering; a cloak is a covering. I
+need a cloak. What I need, I have to make; I need a cloak. I have to make a cloak. And
+the conclusion, the “I have to make a cloak,” is an action.
+In the Nicomachean Ethics (Book III. 3, 1112b), Aristotle further elaborates on this topic,
+suggesting an algorithm:
+We deliberate not about ends, but about means. For a doctor does not deliberate whether
+he shall heal, nor an orator whether he shall persuade, . . . They assume the end and
+consider how and by what means it is attained, and if it seems easily and best produced
+thereby; while if it is achieved by one means only they consider how it will be achieved
+by this and by what means this will be achieved, till they come to the ﬁrst cause, . . . and
+what is last in the order of analysis seems to be ﬁrst in the order of becoming. And if we
+come on an impossibility, we give up the search, e.g., if we need money and this cannot
+be got; but if a thing appears possible we try to do it.
+Aristotle’s algorithm was implemented 2300 years later by Newell and Simon in their GPS
+program. We would now call it a regression planning system (see Chapter 10).
+Goal-based analysis is useful, but does not say what to do when several actions will
+achieve the goal or when no action will achieve it completely. Antoine Arnauld (1612–1694)
+correctly described a quantitative formula for deciding what action to take in cases like this
+(see Chapter 16). John Stuart Mill’s (1806–1873) book Utilitarianism (Mill, 1863) promoted
+the idea of rational decision criteria in all spheres of human activity. The more formal theory
+of decisions is discussed in the following section.
+1.2.2
+Mathematics
+• What are the formal rules to draw valid conclusions?
+• What can be computed?
+• How do we reason with uncertain information?
+Philosophers staked out some of the fundamental ideas of AI, but the leap to a formal science
+required a level of mathematical formalization in three fundamental areas: logic, computa-
+tion, and probability.
+The idea of formal logic can be traced back to the philosophers of ancient Greece, but
+its mathematical development really began with the work of George Boole (1815–1864), who
+
+
+===== PAGE 8 =====
+
+8
+Chapter
+1.
+Introduction
+worked out the details of propositional, or Boolean, logic (Boole, 1847). In 1879, Gottlob
+Frege (1848–1925) extended Boole’s logic to include objects and relations, creating the ﬁrst-
+order logic that is used today.4 Alfred Tarski (1902–1983) introduced a theory of reference
+that shows how to relate the objects in a logic to objects in the real world.
+The next step was to determine the limits of what could be done with logic and com-
+putation. The ﬁrst nontrivial algorithm is thought to be Euclid’s algorithm for computing
+ALGORITHM
+greatest common divisors. The word algorithm (and the idea of studying them) comes from
+al-Khowarazmi, a Persian mathematician of the 9th century, whose writings also introduced
+Arabic numerals and algebra to Europe. Boole and others discussed algorithms for logical
+deduction, and, by the late 19th century, efforts were under way to formalize general mathe-
+matical reasoning as logical deduction. In 1930, Kurt G¨odel (1906–1978) showed that there
+exists an effective procedure to prove any true statement in the ﬁrst-order logic of Frege and
+Russell, but that ﬁrst-order logic could not capture the principle of mathematical induction
+needed to characterize the natural numbers. In 1931, G¨odel showed that limits on deduc-
+tion do exist. His incompleteness theorem showed that in any formal theory as strong as
+INCOMPLETENESS
+THEOREM
+Peano arithmetic (the elementary theory of natural numbers), there are true statements that
+are undecidable in the sense that they have no proof within the theory.
+This fundamental result can also be interpreted as showing that some functions on the
+integers cannot be represented by an algorithm—that is, they cannot be computed. This
+motivated Alan Turing (1912–1954) to try to characterize exactly which functions are com-
+putable—capable of being computed. This notion is actually slightly problematic because
+COMPUTABLE
+the notion of a computation or effective procedure really cannot be given a formal deﬁnition.
+However, the Church–Turing thesis, which states that the Turing machine (Turing, 1936) is
+capable of computing any computable function, is generally accepted as providing a sufﬁcient
+deﬁnition. Turing also showed that there were some functions that no Turing machine can
+compute. For example, no machine can tell in general whether a given program will return
+an answer on a given input or run forever.
+Although decidability and computability are important to an understanding of computa-
+tion, the notion of tractability has had an even greater impact. Roughly speaking, a problem
+TRACTABILITY
+is called intractable if the time required to solve instances of the problem grows exponentially
+with the size of the instances. The distinction between polynomial and exponential growth
+in complexity was ﬁrst emphasized in the mid-1960s (Cobham, 1964; Edmonds, 1965). It is
+important because exponential growth means that even moderately large instances cannot be
+solved in any reasonable time. Therefore, one should strive to divide the overall problem of
+generating intelligent behavior into tractable subproblems rather than intractable ones.
+How can one recognize an intractable problem? The theory of NP-completeness, pio-
+NP-COMPLETENESS
+neered by Steven Cook (1971) and Richard Karp (1972), provides a method. Cook and Karp
+showed the existence of large classes of canonical combinatorial search and reasoning prob-
+lems that are NP-complete. Any problem class to which the class of NP-complete problems
+can be reduced is likely to be intractable. (Although it has not been proved that NP-complete
+4 Frege’s proposed notation for ﬁrst-order logic—an arcane combination of textual and geometric features—
+never became popular.
+
+
+===== PAGE 9 =====
+
+Section 1.2.
+The Foundations of Artiﬁcial Intelligence
+9
+problems are necessarily intractable, most theoreticians believe it.) These results contrast
+with the optimism with which the popular press greeted the ﬁrst computers—“Electronic
+Super-Brains” that were “Faster than Einstein!” Despite the increasing speed of computers,
+careful use of resources will characterize intelligent systems. Put crudely, the world is an
+extremely large problem instance! Work in AI has helped explain why some instances of
+NP-complete problems are hard, yet others are easy (Cheeseman et al., 1991).
+Besides logic and computation, the third great contribution of mathematics to AI is the
+theory of probability. The Italian Gerolamo Cardano (1501–1576) ﬁrst framed the idea of
+PROBABILITY
+probability, describing it in terms of the possible outcomes of gambling events. In 1654,
+Blaise Pascal (1623–1662), in a letter to Pierre Fermat (1601–1665), showed how to pre-
+dict the future of an unﬁnished gambling game and assign average payoffs to the gamblers.
+Probability quickly became an invaluable part of all the quantitative sciences, helping to deal
+with uncertain measurements and incomplete theories. James Bernoulli (1654–1705), Pierre
+Laplace (1749–1827), and others advanced the theory and introduced new statistical meth-
+ods. Thomas Bayes (1702–1761), who appears on the front cover of this book, proposed
+a rule for updating probabilities in the light of new evidence. Bayes’ rule underlies most
+modern approaches to uncertain reasoning in AI systems.
+1.2.3
+Economics
+• How should we make decisions so as to maximize payoff?
+• How should we do this when others may not go along?
+• How should we do this when the payoff may be far in the future?
+The science of economics got its start in 1776, when Scottish philosopher Adam Smith
+(1723–1790) published An Inquiry into the Nature and Causes of the Wealth of Nations.
+While the ancient Greeks and others had made contributions to economic thought, Smith was
+the ﬁrst to treat it as a science, using the idea that economies can be thought of as consist-
+ing of individual agents maximizing their own economic well-being. Most people think of
+economics as being about money, but economists will say that they are really studying how
+people make choices that lead to preferred outcomes. When McDonald’s offers a hamburger
+for a dollar, they are asserting that they would prefer the dollar and hoping that customers will
+prefer the hamburger. The mathematical treatment of “preferred outcomes” or utility was
+UTILITY
+ﬁrst formalized by L´eon Walras (pronounced “Valrasse”) (1834-1910) and was improved by
+Frank Ramsey (1931) and later by John von Neumann and Oskar Morgenstern in their book
+The Theory of Games and Economic Behavior (1944).
+Decision theory, which combines probability theory with utility theory, provides a for-
+DECISION THEORY
+mal and complete framework for decisions (economic or otherwise) made under uncertainty—
+that is, in cases where probabilistic descriptions appropriately capture the decision maker’s
+environment. This is suitable for “large” economies where each agent need pay no attention
+to the actions of other agents as individuals. For “small” economies, the situation is much
+more like a game: the actions of one player can signiﬁcantly affect the utility of another
+(either positively or negatively). Von Neumann and Morgenstern’s development of game
+theory (see also Luce and Raiffa, 1957) included the surprising result that, for some games,
+GAME THEORY
+
+
+===== PAGE 10 =====
+
+10
+Chapter
+1.
+Introduction
+a rational agent should adopt policies that are (or least appear to be) randomized. Unlike de-
+cision theory, game theory does not offer an unambiguous prescription for selecting actions.
+For the most part, economists did not address the third question listed above, namely,
+how to make rational decisions when payoffs from actions are not immediate but instead re-
+sult from several actions taken in sequence. This topic was pursued in the ﬁeld of operations
+research, which emerged in World War II from efforts in Britain to optimize radar installa-
+OPERATIONS
+RESEARCH
+tions, and later found civilian applications in complex management decisions. The work of
+Richard Bellman (1957) formalized a class of sequential decision problems called Markov
+decision processes, which we study in Chapters 17 and 21.
+Work in economics and operations research has contributed much to our notion of ra-
+tional agents, yet for many years AI research developed along entirely separate paths. One
+reason was the apparent complexity of making rational decisions. The pioneering AI re-
+searcher Herbert Simon (1916–2001) won the Nobel Prize in economics in 1978 for his early
+work showing that models based on satisﬁcing—making decisions that are “good enough,”
+SATISFICING
+rather than laboriously calculating an optimal decision—gave a better description of actual
+human behavior (Simon, 1947). Since the 1990s, there has been a resurgence of interest in
+decision-theoretic techniques for agent systems (Wellman, 1995).
+1.2.4
+Neuroscience
+• How do brains process information?
+Neuroscience is the study of the nervous system, particularly the brain. Although the exact
+NEUROSCIENCE
+way in which the brain enables thought is one of the great mysteries of science, the fact that it
+does enable thought has been appreciated for thousands of years because of the evidence that
+strong blows to the head can lead to mental incapacitation. It has also long been known that
+human brains are somehow different; in about 335 B.C. Aristotle wrote, “Of all the animals,
+man has the largest brain in proportion to his size.”5 Still, it was not until the middle of the
+18th century that the brain was widely recognized as the seat of consciousness. Before then,
+candidate locations included the heart and the spleen.
+Paul Broca’s (1824–1880) study of aphasia (speech deﬁcit) in brain-damaged patients
+in 1861 demonstrated the existence of localized areas of the brain responsible for speciﬁc
+cognitive functions. In particular, he showed that speech production was localized to the
+portion of the left hemisphere now called Broca’s area.6 By that time, it was known that
+the brain consisted of nerve cells, or neurons, but it was not until 1873 that Camillo Golgi
+NEURON
+(1843–1926) developed a staining technique allowing the observation of individual neurons
+in the brain (see Figure 1.2). This technique was used by Santiago Ramon y Cajal (1852–
+1934) in his pioneering studies of the brain’s neuronal structures.7 Nicolas Rashevsky (1936,
+1938) was the ﬁrst to apply mathematical models to the study of the nervous sytem.
+5 Since then, it has been discovered that the tree shrew (Scandentia) has a higher ratio of brain to body mass.
+6 Many cite Alexander Hood (1824) as a possible prior source.
+7 Golgi persisted in his belief that the brain’s functions were carried out primarily in a continuous medium in
+which neurons were embedded, whereas Cajal propounded the “neuronal doctrine.” The two shared the Nobel
+prize in 1906 but gave mutually antagonistic acceptance speeches.
+
+
+===== PAGE 11 =====
+
+Section 1.2.
+The Foundations of Artiﬁcial Intelligence
+11
+Axon
+Cell body or Soma
+Nucleus
+Dendrite
+Synapses
+Axonal arborization
+Axon from another cell
+Synapse
+Figure 1.2
+The parts of a nerve cell or neuron. Each neuron consists of a cell body,
+or soma, that contains a cell nucleus. Branching out from the cell body are a number of
+ﬁbers called dendrites and a single long ﬁber called the axon. The axon stretches out for a
+long distance, much longer than the scale in this diagram indicates. Typically, an axon is
+1 cm long (100 times the diameter of the cell body), but can reach up to 1 meter. A neuron
+makes connections with 10 to 100,000 other neurons at junctions called synapses. Signals are
+propagated from neuron to neuron by a complicated electrochemical reaction. The signals
+control brain activity in the short term and also enable long-term changes in the connectivity
+of neurons. These mechanisms are thought to form the basis for learning in the brain. Most
+information processing goes on in the cerebral cortex, the outer layer of the brain. The basic
+organizational unit appears to be a column of tissue about 0.5 mm in diameter, containing
+about 20,000 neurons and extending the full depth of the cortex about 4 mm in humans).
+We now have some data on the mapping between areas of the brain and the parts of the
+body that they control or from which they receive sensory input. Such mappings are able to
+change radically over the course of a few weeks, and some animals seem to have multiple
+maps. Moreover, we do not fully understand how other areas can take over functions when
+one area is damaged. There is almost no theory on how an individual memory is stored.
+The measurement of intact brain activity began in 1929 with the invention by Hans
+Berger of the electroencephalograph (EEG). The recent development of functional magnetic
+resonance imaging (fMRI) (Ogawa et al., 1990; Cabeza and Nyberg, 2001) is giving neu-
+roscientists unprecedentedly detailed images of brain activity, enabling measurements that
+correspond in interesting ways to ongoing cognitive processes. These are augmented by
+advances in single-cell recording of neuron activity. Individual neurons can be stimulated
+electrically, chemically, or even optically (Han and Boyden, 2007), allowing neuronal input–
+output relationships to be mapped. Despite these advances, we are still a long way from
+understanding how cognitive processes actually work.
+The truly amazing conclusion is that a collection of simple cells can lead to thought,
+action, and consciousness or, in the pithy words of John Searle (1992), brains cause minds.
+
+
+===== PAGE 12 =====
+
+12
+Chapter
+1.
+Introduction
+Supercomputer
+Personal Computer
+Human Brain
+Computational units
+104 CPUs, 1012 transistors 4 CPUs, 109 transistors 1011 neurons
+Storage units
+1014 bits RAM
+1011 bits RAM
+1011 neurons
+1015 bits disk
+1013 bits disk
+1014 synapses
+Cycle time
+10−9 sec
+10−9 sec
+10−3 sec
+Operations/sec
+1015
+1010
+1017
+Memory updates/sec
+1014
+1010
+1014
+Figure 1.3
+A crude comparison of the raw computational resources available to the IBM
+BLUE GENE supercomputer, a typical personal computer of 2008, and the human brain. The
+brain’s numbers are essentially ﬁxed, whereas the supercomputer’s numbers have been in-
+creasing by a factor of 10 every 5 years or so, allowing it to achieve rough parity with the
+brain. The personal computer lags behind on all metrics except cycle time.
+The only real alternative theory is mysticism: that minds operate in some mystical realm that
+is beyond physical science.
+Brains and digital computers have somewhat different properties. Figure 1.3 shows that
+computers have a cycle time that is a million times faster than a brain. The brain makes up
+for that with far more storage and interconnection than even a high-end personal computer,
+although the largest supercomputers have a capacity that is similar to the brain’s. (It should
+be noted, however, that the brain does not seem to use all of its neurons simultaneously.)
+Futurists make much of these numbers, pointing to an approaching singularity at which
+SINGULARITY
+computers reach a superhuman level of performance (Vinge, 1993; Kurzweil, 2005), but the
+raw comparisons are not especially informative. Even with a computer of virtually unlimited
+capacity, we still would not know how to achieve the brain’s level of intelligence.
+1.2.5
+Psychology
+• How do humans and animals think and act?
+The origins of scientiﬁc psychology are usually traced to the work of the German physi-
+cist Hermann von Helmholtz (1821–1894) and his student Wilhelm Wundt (1832–1920).
+Helmholtz applied the scientiﬁc method to the study of human vision, and his Handbook
+of Physiological Optics is even now described as “the single most important treatise on the
+physics and physiology of human vision” (Nalwa, 1993, p.15). In 1879, Wundt opened the
+ﬁrst laboratory of experimental psychology, at the University of Leipzig. Wundt insisted
+on carefully controlled experiments in which his workers would perform a perceptual or as-
+sociative task while introspecting on their thought processes. The careful controls went a
+long way toward making psychology a science, but the subjective nature of the data made
+it unlikely that an experimenter would ever disconﬁrm his or her own theories. Biologists
+studying animal behavior, on the other hand, lacked introspective data and developed an ob-
+jective methodology, as described by H. S. Jennings (1906) in his inﬂuential work Behavior of
+the Lower Organisms. Applying this viewpoint to humans, the behaviorism movement, led
+BEHAVIORISM
+by John Watson (1878–1958), rejected any theory involving mental processes on the grounds
+
+
+===== PAGE 13 =====
+
+Section 1.2.
+The Foundations of Artiﬁcial Intelligence
+13
+that introspection could not provide reliable evidence. Behaviorists insisted on studying only
+objective measures of the percepts (or stimulus) given to an animal and its resulting actions
+(or response). Behaviorism discovered a lot about rats and pigeons but had less success at
+understanding humans.
+Cognitive psychology, which views the brain as an information-processing device,
+COGNITIVE
+PSYCHOLOGY
+can be traced back at least to the works of William James (1842–1910). Helmholtz also
+insisted that perception involved a form of unconscious logical inference. The cognitive
+viewpoint was largely eclipsed by behaviorism in the United States, but at Cambridge’s Ap-
+plied Psychology Unit, directed by Frederic Bartlett (1886–1969), cognitive modeling was
+able to ﬂourish. The Nature of Explanation, by Bartlett’s student and successor Kenneth
+Craik (1943), forcefully reestablished the legitimacy of such “mental” terms as beliefs and
+goals, arguing that they are just as scientiﬁc as, say, using pressure and temperature to talk
+about gases, despite their being made of molecules that have neither. Craik speciﬁed the
+three key steps of a knowledge-based agent: (1) the stimulus must be translated into an inter-
+nal representation, (2) the representation is manipulated by cognitive processes to derive new
+internal representations, and (3) these are in turn retranslated back into action. He clearly
+explained why this was a good design for an agent:
+If the organism carries a “small-scale model” of external reality and of its own possible
+actions within its head, it is able to try out various alternatives, conclude which is the best
+of them, react to future situations before they arise, utilize the knowledge of past events
+in dealing with the present and future, and in every way to react in a much fuller, safer,
+and more competent manner to the emergencies which face it. (Craik, 1943)
+After Craik’s death in a bicycle accident in 1945, his work was continued by Donald Broad-
+bent, whose book Perception and Communication (1958) was one of the ﬁrst works to model
+psychological phenomena as information processing. Meanwhile, in the United States, the
+development of computer modeling led to the creation of the ﬁeld of cognitive science. The
+ﬁeld can be said to have started at a workshop in September 1956 at MIT. (We shall see that
+this is just two months after the conference at which AI itself was “born.”) At the workshop,
+George Miller presented The Magic Number Seven, Noam Chomsky presented Three Models
+of Language, and Allen Newell and Herbert Simon presented The Logic Theory Machine.
+These three inﬂuential papers showed how computer models could be used to address the
+psychology of memory, language, and logical thinking, respectively. It is now a common
+(although far from universal) view among psychologists that “a cognitive theory should be
+like a computer program” (Anderson, 1980); that is, it should describe a detailed information-
+processing mechanism whereby some cognitive function might be implemented.
+1.2.6
+Computer engineering
+• How can we build an efﬁcient computer?
+For artiﬁcial intelligence to succeed, we need two things: intelligence and an artifact. The
+computer has been the artifact of choice. The modern digital electronic computer was in-
+vented independently and almost simultaneously by scientists in three countries embattled in
+
+
+===== PAGE 14 =====
+
+14
+Chapter
+1.
+Introduction
+World War II. The ﬁrst operational computer was the electromechanical Heath Robinson,8
+built in 1940 by Alan Turing’s team for a single purpose: deciphering German messages. In
+1943, the same group developed the Colossus, a powerful general-purpose machine based
+on vacuum tubes.9 The ﬁrst operational programmable computer was the Z-3, the inven-
+tion of Konrad Zuse in Germany in 1941. Zuse also invented ﬂoating-point numbers and the
+ﬁrst high-level programming language, Plankalk¨ul. The ﬁrst electronic computer, the ABC,
+was assembled by John Atanasoff and his student Clifford Berry between 1940 and 1942
+at Iowa State University. Atanasoff’s research received little support or recognition; it was
+the ENIAC, developed as part of a secret military project at the University of Pennsylvania
+by a team including John Mauchly and John Eckert, that proved to be the most inﬂuential
+forerunner of modern computers.
+Since that time, each generation of computer hardware has brought an increase in speed
+and capacity and a decrease in price. Performance doubled every 18 months or so until around
+2005, when power dissipation problems led manufacturers to start multiplying the number of
+CPU cores rather than the clock speed. Current expectations are that future increases in power
+will come from massive parallelism—a curious convergence with the properties of the brain.
+Of course, there were calculating devices before the electronic computer. The earliest
+automated machines, dating from the 17th century, were discussed on page 6. The ﬁrst pro-
+grammable machine was a loom, devised in 1805 by Joseph Marie Jacquard (1752–1834),
+that used punched cards to store instructions for the pattern to be woven. In the mid-19th
+century, Charles Babbage (1792–1871) designed two machines, neither of which he com-
+pleted. The Difference Engine was intended to compute mathematical tables for engineering
+and scientiﬁc projects. It was ﬁnally built and shown to work in 1991 at the Science Museum
+in London (Swade, 2000). Babbage’s Analytical Engine was far more ambitious: it included
+addressable memory, stored programs, and conditional jumps and was the ﬁrst artifact capa-
+ble of universal computation. Babbage’s colleague Ada Lovelace, daughter of the poet Lord
+Byron, was perhaps the world’s ﬁrst programmer. (The programming language Ada is named
+after her.) She wrote programs for the unﬁnished Analytical Engine and even speculated that
+the machine could play chess or compose music.
+AI also owes a debt to the software side of computer science, which has supplied the
+operating systems, programming languages, and tools needed to write modern programs (and
+papers about them). But this is one area where the debt has been repaid: work in AI has pio-
+neered many ideas that have made their way back to mainstream computer science, including
+time sharing, interactive interpreters, personal computers with windows and mice, rapid de-
+velopment environments, the linked list data type, automatic storage management, and key
+concepts of symbolic, functional, declarative, and object-oriented programming.
+8 Heath Robinson was a cartoonist famous for his depictions of whimsical and absurdly complicated contrap-
+tions for everyday tasks such as buttering toast.
+9 In the postwar period, Turing wanted to use these computers for AI research—for example, one of the ﬁrst
+chess programs (Turing et al., 1953). His efforts were blocked by the British government.
