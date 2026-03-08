@@ -13,7 +13,7 @@ class LatexAgent:
     def __init__(self, model_name="qwen2.5:7b"):
         self.model_name = model_name
 
-    def run(self, input_pdf_path, output_filename, max_attempts=3):
+    def run(self, input_pdf_path, output_filename, max_attempts=2):
         output_dir = "Data/intermediate"
         os.makedirs(output_dir, exist_ok=True)
         
