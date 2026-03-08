@@ -14,7 +14,7 @@ class LatexAgent:
         self.model_name = model_name
 
     def run(self, input_pdf_path, output_filename, max_attempts=3):
-        output_dir = "Data/output"
+        output_dir = "Data/intermediate"
         os.makedirs(output_dir, exist_ok=True)
         
         tex_path = os.path.join(output_dir, f"{output_filename}.tex")
