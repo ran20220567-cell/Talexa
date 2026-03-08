@@ -158,9 +158,12 @@ class LatexAgent:
             return None
 
 if __name__ == "__main__":
-    input_file = "Data/input/slides.pdf" 
-    if os.path.exists(input_file):
+    input_file = r"C:\Users\user\Desktop\Talexa\Data\input\slides\Adversarial Search.pdf"
+
+    if os.path.exists(input_file):s
+        output_name = os.path.splitext(os.path.basename(input_file))[0]
         agent = LatexAgent()
-        agent.run(input_file, "Lecture_Slides_Talexa")
+        agent.run(input_file, output_name)
+
     else:
         print(f"Input file not found at: {input_file}")
