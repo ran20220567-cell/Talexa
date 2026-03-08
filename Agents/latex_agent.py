@@ -88,7 +88,7 @@ class LatexAgent:
     def run(self, pdf_name, max_attempts=3):
 
         summary_path = f"Data/output/{pdf_name}_summary.txt"
-        tex_output = f"Data/output/{pdf_name}.tex"
+        tex_output = f"Data/intermediate/{pdf_name}.tex"
 
         attempt = 0
 
