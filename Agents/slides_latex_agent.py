@@ -10,7 +10,7 @@ from Prompts.slides_latex_prompt import SLIDES_LATEX_PROMPT
 
 class LatexAgent:
 
-    def __init__(self, model_name="qwen2.5:7b"):
+    def __init__(self, model_name="qwen3-vl"):
         self.model_name = model_name
 
     def run(self, input_pdf_path, output_filename, max_attempts=2):
