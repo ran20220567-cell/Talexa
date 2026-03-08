@@ -88,6 +88,7 @@ class LatexAgent:
     def run(self, pdf_name, max_attempts=3):
 
         summary_path = f"Data/output/{pdf_name}_summary.txt"
+        pdf_name = os.path.splitext(os.path.basename(summary_path))[0].replace("_summary", "")
         tex_output = f"Data/intermediate/{pdf_name}.tex"
 
         attempt = 0
