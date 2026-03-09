@@ -29,8 +29,8 @@ class SlideBuilderAgent:
         llm_model="qwen2.5:7b",
         vlm_model="qwen3-vl",
         slide_prompt_path="prompts/Slider_Builder_Prompt.py",
-        correct_prompt_path="prompts/slide_beamer_correct.txt",
-        select_proposal_prompt_path="prompts/select_proposal.txt",
+        correct_prompt_path="prompts/slide_beamer_correct.py",
+        select_proposal_prompt_path="prompts/select_proposal.py",
     ):
         self.llm_model = llm_model
         self.vlm_model = vlm_model
@@ -633,5 +633,6 @@ if __name__ == "__main__":
         max_fix_attempts=10,
         improve=True
     )
+
 
     print("\nGenerated file:", final_pdf)
