@@ -64,6 +64,18 @@ class LatexAgent:
 
             if pdf_path:
                 print("Agent completed successfully.")
+
+                # cleanup intermediate directory (keep only .tex and .pdf)
+                for file in os.listdir(output_dir):
+                    file_path = os.path.join(output_dir, file)
+                    if os.path.isfile(file_path):
+                        ext = os.path.splitext(file)[1].lower()
+                        if ext not in [".tex", ".pdf"]:
+                            try:
+                                os.remove(file_path)
+                            except Exception as e:
+                                print(f"Could not delete {file}: {e}")
+
                 return pdf_path
 
             attempt += 1
@@ -176,7 +188,7 @@ class LatexAgent:
         pdf_path = os.path.join(output_dir, f"{output_name}.pdf")
 
         try:
-            for i in range(2):
+            for _ in range(2):
                 result = subprocess.run(
                     ["pdflatex", "-interaction=nonstopmode", f"-output-directory={output_dir}", tex_path],
                     capture_output=True,
@@ -203,13 +215,12 @@ class LatexAgent:
 
 
 if __name__ == "__main__":
-    input_file = r"C:\Users\user\Desktop\Talexa\Data\input\slides\Learning Paradigms.pdf"
+    input_file = r"C:\Users\user\Desktop\Talexa\Data\input\slides\Introduction to AI.pdf"
 
     if os.path.exists(input_file):
 
         agent = LatexAgent()
 
-        # automatically use slide name
         output_name = os.path.splitext(os.path.basename(input_file))[0]
 
         agent.run(input_file, output_name)
