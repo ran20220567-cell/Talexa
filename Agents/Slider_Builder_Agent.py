@@ -1,638 +1,234 @@
-# Agents/slide_builder_agent.py
-
-"""
-Slide Beamer Code Generation Agent
-Uses Ollama and runs on the output of the LatexAgent.
-"""
-
 import os
-import re
-import fitz
-import json
-import string
-import bisect
 import subprocess
-
-from os import path
-from pathlib import Path
-from bisect import bisect_right
-from typing import Sequence, Tuple, Optional
-
 import ollama
-from PIL import Image, ImageDraw, ImageFont
+import pdfplumber
+import sys
+import re
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from Prompts.slides_latex_prompt import SLIDES_LATEX_PROMPT
 
-class SlideBuilderAgent:
 
-    def __init__(
-        self,
-        llm_model="qwen2.5:7b",
-        vlm_model="qwen3-vl",
-        slide_prompt_path="prompts/Slider_Builder_Prompt.py",
-        correct_prompt_path="prompts/slide_beamer_correct.py",
-        select_proposal_prompt_path="prompts/select_proposal.py",
-    ):
-        self.llm_model = llm_model
-        self.vlm_model = vlm_model
-        self.slide_prompt_path = slide_prompt_path
-        self.correct_prompt_path = correct_prompt_path
-        self.select_proposal_prompt_path = select_proposal_prompt_path
+class LatexAgent:
 
-    def extract_json_block(self, text: str, first_only: bool = True):
-        pattern = r"```json\s*([\s\S]*?)\s*```"
-        matches = re.findall(pattern, text, flags=re.IGNORECASE)
-        if first_only:
-            return matches[0] if matches else text
-        return matches
+    def __init__(self, model_name="qwen2.5:7b"):
+        self.model_name = model_name
 
-    def extract_beamer_code(self, tex_str):
-        match = re.search(
-            r"(\\documentclass(?:\[[^\]]*\])?\{beamer\}.*?\\end\{document\})",
-            tex_str,
-            re.DOTALL,
-        )
-        return match.group(1) if match else None
+    def run(self, input_pdf_path, output_filename=None, max_attempts=2):
+        output_dir = r"C:\Users\user\Desktop\Talexa\Data\intermediate"
+        os.makedirs(output_dir, exist_ok=True)
 
-    def query_ollama(self, model_name, system_prompt, user_prompt):
-        response = ollama.chat(
-            model=model_name,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-        )
-        return response["message"]["content"]
+        tex_path = os.path.join(output_dir, f"{output_filename}.tex")
 
-    def query_ollama_with_image(self, model_name, system_prompt, user_prompt, image_path):
-        response = ollama.chat(
-            model=model_name,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {
-                    "role": "user",
-                    "content": user_prompt,
-                    "images": [str(image_path)],
-                },
-            ],
-        )
-        return response["message"]["content"]
+        print(f"Extracting text from slide PDF: {input_pdf_path}")
 
-    def find_all_tex_files(self, root_dir):
-        tex_files = []
-        for dirpath, dirnames, filenames in os.walk(root_dir):
-            for filename in filenames:
-                if filename.endswith(".tex"):
-                    full_path = os.path.join(dirpath, filename)
-                    try:
-                        with open(full_path, "r", encoding="utf-8") as f:
-                            tex_files.append(f.read())
-                    except Exception as e:
-                        print(f"⚠️ Skip {full_path}: {e}")
-                        continue
-        return tex_files
-
-    def compile_tex(self, tex_path):
-        tex_path = Path(tex_path).resolve()
-        if not tex_path.exists():
-            raise FileNotFoundError(f"Tex file {tex_path} does not exist")
-
-        try:
-            result = subprocess.run(
-                ["tectonic", str(tex_path)],
-                check=True,
-                capture_output=True,
-                text=True
-            )
-            print("Tex File Compilation succeeded.")
-            return "\n".join([result.stdout, result.stderr])
-        except subprocess.CalledProcessError as e:
-            print("Compilation failed:")
-            print(e.stderr)
-            return e.stderr
-
-    def correcte_error(self, beamer_code, error_info):
-        with open(self.correct_prompt_path, "r", encoding="utf-8") as f:
-            template_prompt = f.read()
-
-        inference_prompt = "\n".join([
-            template_prompt,
-            "This is the latex code for slides:",
-            beamer_code,
-            "The errors are:",
-            "\n".join(error_info),
-        ])
-
-        content = self.query_ollama(
-            model_name=self.llm_model,
-            system_prompt="You are a LaTeX Beamer error correction assistant.",
-            user_prompt=inference_prompt,
-        )
-
-        code = self.extract_beamer_code(content)
-        return code
-
-    def pdf2img(self, pdf_path, image_dir, dpi=300, fmt="png", strict_single_page=True):
-        pdf_path = Path(pdf_path)
-        image_dir = Path(image_dir)
-
-        if pdf_path.suffix.lower() != ".pdf":
-            raise ValueError(f"not pdf file: {pdf_path}")
-        if not pdf_path.exists():
-            raise FileNotFoundError(f"can not find: {pdf_path}")
-
-        with fitz.open(pdf_path) as doc:
-            if strict_single_page and doc.page_count != 1:
-                raise ValueError(f"not single slide {doc.page_count}: {pdf_path}")
-
-            page = doc[0]
-            scale = dpi / 72.0
-            mat = fitz.Matrix(scale, scale)
-            pix = page.get_pixmap(matrix=mat, alpha=False)
-
-        image_dir.mkdir(parents=True, exist_ok=True)
-        fmt = fmt.lower()
-        if fmt == "jpeg":
-            fmt = "jpg"
-
-        out_path = image_dir / f"{pdf_path.stem}.{fmt}"
-        pix.save(out_path.as_posix())
-        return out_path
-
-    def add_small_after_blocks(self, tex) -> str:
-        pattern = re.compile(
-            r'(?m)^([ \t]*)\\begin\{(?:block|alertblock|exampleblock)\}'
-            r'(?:<[^>\n]*>)?(?:\[[^\]\n]*\])?\s*\{[^}]*\}[^\n]*\r?\n'
-            r'([ \t]*)(?!\\small\b)'
-        )
-
-        def repl(m: re.Match) -> str:
-            return f"{m.group(0)}\\footnotesize\n{m.group(2)}"
-
-        return pattern.sub(repl, tex)
-
-    def scale_includegraphics_widths(self, tex: str, factor: float, precision: int = 3, add_if_missing: bool = False) -> str:
-        include_re = re.compile(
-            r'\\includegraphics(?:\s*\[(?P<opts>[^\]]*)\])?\s*\{(?P<path>[^}]*)\}',
-            re.DOTALL,
-        )
-        width_re = re.compile(r'(?<![a-zA-Z])width\s*=\s*([^,\]]+)', re.IGNORECASE)
-        rel_re = re.compile(r'^\s*(?:(\d*\.?\d+)|\.(\d+))?\s*\\(textwidth|linewidth|columnwidth)\b')
-
-        def scale_rel(expr: str):
-            val = expr.strip().strip("{}")
-            m = rel_re.match(val)
-            if not m:
-                return None
-            num = m.group(1)
-            if num is None and m.group(2) is not None:
-                num = "0." + m.group(2)
-            k = 1.0 if not num else float(num)
-            new_k = round(k * factor, precision)
-            return f"{new_k:g}\\{m.group(3)}"
-
-        def repl_inc(mm: re.Match):
-            opts = mm.group("opts")
-            img_path = mm.group("path")
-
-            if opts is None or opts.strip() == "":
-                if add_if_missing:
-                    return f"\\includegraphics[width={factor:g}\\textwidth]{{{img_path}}}"
-                return mm.group(0)
-
-            def repl_width(mw: re.Match):
-                expr = mw.group(1)
-                scaled = scale_rel(expr)
-                return f"width={scaled}" if scaled is not None else mw.group(0)
-
-            new_opts = width_re.sub(repl_width, opts)
-            if new_opts == opts and add_if_missing:
-                new_opts = f"width={factor:g}\\textwidth," + opts.strip()
-
-            return f"\\includegraphics[{new_opts}]{{{img_path}}}"
-
-        return include_re.sub(repl_inc, tex)
-
-    def _line_starts(self, text):
-        starts = [0]
-        for m in re.finditer('\n', text):
-            starts.append(m.end())
-        return starts
-
-    def _pos_to_line(self, pos, line_starts):
-        return bisect.bisect_right(line_starts, pos)
-
-    def compute_frame_spans(self, code: str):
-        line_starts = self._line_starts(code)
-
-        sec_re = re.compile(r'(?m)^\\section\*?(?:\[[^\]]*\])?\{([^}]*)\}')
-        sub_re = re.compile(r'(?m)^\\subsection\*?(?:\[[^\]]*\])?\{([^}]*)\}')
-
-        sections = []
-        for m in sec_re.finditer(code):
-            pos = m.start()
-            sections.append({
-                "pos": pos,
-                "line": self._pos_to_line(pos, line_starts),
-                "title": m.group(1).strip()
-            })
-
-        subsections = []
-        for m in sub_re.finditer(code):
-            pos = m.start()
-            subsections.append({
-                "pos": pos,
-                "line": self._pos_to_line(pos, line_starts),
-                "title": m.group(1).strip()
-            })
-
-        sec_pos_list = [s["pos"] for s in sections]
-        sub_pos_list = [s["pos"] for s in subsections]
-
-        frame_re = re.compile(
-            r'\\begin\{frame\}(?:<[^>\n]*>)?(?:\[[^\]\n]*\])?(?:\{.*?\}){0,2}.*?\\end\{frame\}',
-            re.DOTALL
-        )
-        frametitle_re = re.compile(r'\\frametitle(?:<[^>]*>)?(?:\[[^\]]*\])?\{([^}]*)\}')
-        frame_env_title_re = re.compile(
-            r'^\\begin\{frame\}(?:<[^>\n]*>)?(?:\[[^\]\n]*\])?\s*\{([^}]*)\}',
-            re.DOTALL
-        )
-
-        frames = []
-        for i, m in enumerate(frame_re.finditer(code)):
-            start, end = m.start(), m.end()
-            start_line = self._pos_to_line(start, line_starts)
-            end_line = self._pos_to_line(end - 1, line_starts)
-            text = m.group(0)
-
-            t = frametitle_re.search(text)
-            if t:
-                title = t.group(1).strip()
-            else:
-                t2 = frame_env_title_re.search(text)
-                title = t2.group(1).strip() if t2 else ""
-
-            if sec_pos_list:
-                j = bisect_right(sec_pos_list, start) - 1
-                if j >= 0:
-                    sec_title = sections[j]["title"]
-                    sec_line = sections[j]["line"]
-                else:
-                    sec_title, sec_line = "", None
-            else:
-                sec_title, sec_line = "", None
-
-            if sub_pos_list:
-                k = bisect_right(sub_pos_list, start) - 1
-                if k >= 0:
-                    sub_title = subsections[k]["title"]
-                    sub_line = subsections[k]["line"]
-                else:
-                    sub_title, sub_line = "", None
-            else:
-                sub_title, sub_line = "", None
-
-            frames.append({
-                "idx": i,
-                "start": start,
-                "end": end,
-                "start_line": start_line,
-                "end_line": end_line,
-                "title": title,
-                "section": sec_title,
-                "section_line": sec_line,
-                "subsection": sub_title,
-                "subsection_line": sub_line,
-                "text": text
-            })
-
-        return frames
-
-    def make_grid_with_labels(
-        self,
-        img_paths: Sequence[str],
-        out_path: str,
-        cell_size: Tuple[int, int] = (512, 512),
-        gap: int = 16,
-        rows: int = 2,
-        cols: int = 2,
-        labels: Optional[Sequence[str]] = None,
-        bg_color: Tuple[int, int, int] = (255, 255, 255),
-        font_path: Optional[str] = None,
-        font_size: Optional[int] = None,
-    ) -> Path:
-        n = rows * cols
-        if len(img_paths) != n:
-            raise ValueError(f"img_paths must contain {n} image paths (got {len(img_paths)})")
-
-        if labels is None:
-            labels = list(string.ascii_uppercase[:n])
-
-        cw, ch = cell_size
-        canvas_w = cw * cols + gap * (cols - 1)
-        canvas_h = ch * rows + gap * (rows - 1)
-        canvas = Image.new("RGB", (canvas_w, canvas_h), bg_color)
-
-        def _to_rgb(img: Image.Image) -> Image.Image:
-            if img.mode in ("RGBA", "LA"):
-                base = Image.new("RGB", img.size, bg_color)
-                base.paste(img, mask=img.split()[-1])
-                return base
-            return img.convert("RGB")
-
-        if font_size is None:
-            font_size = max(16, int(min(cw, ch) * 0.08))
-
-        font = None
-        if font_path:
-            try:
-                font = ImageFont.truetype(font_path, font_size)
-            except Exception:
-                font = None
-
-        if font is None:
-            for try_name in ["DejaVuSans-Bold.ttf", "Arial.ttf", "Helvetica.ttf"]:
-                try:
-                    font = ImageFont.truetype(try_name, font_size)
-                    break
-                except Exception:
-                    continue
-
-        if font is None:
-            font = ImageFont.load_default()
-
-        draw = ImageDraw.Draw(canvas)
-
-        positions = []
-        for r in range(rows):
-            for c in range(cols):
-                x0 = c * (cw + gap)
-                y0 = r * (ch + gap)
-                positions.append((x0, y0))
-
-        for i, (p, (x0, y0)) in enumerate(zip(img_paths, positions)):
-            with Image.open(p) as im_raw:
-                im = _to_rgb(im_raw)
-
-            w, h = im.size
-            scale = min(cw / w, ch / h)
-            nw, nh = max(1, int(w * scale)), max(1, int(h * scale))
-            im_resized = im.resize((nw, nh), Image.BICUBIC)
-
-            px = x0 + (cw - nw) // 2
-            py = y0 + (ch - nh) // 2
-            canvas.paste(im_resized, (px, py))
-
-            label = labels[i]
-            margin = max(6, font_size // 4)
-            tx, ty = x0 + margin, y0 + margin
-            draw.text(
-                (tx, ty),
-                label,
-                font=font,
-                fill=(255, 0, 0),
-                stroke_width=max(1, font_size // 16),
-                stroke_fill=(255, 0, 0)
-            )
-
-        out_path = Path(out_path)
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        canvas.save(out_path.as_posix())
-        return out_path
-
-    def improve_layout(self, code, feedback, beamer_save_path):
-        with open(self.select_proposal_prompt_path, "r", encoding="utf-8") as f:
-            template_prompt = f.read()
-
-        warning_info = re.findall(r'^(warning: .+)', feedback, flags=re.MULTILINE)
-        warning_info = warning_info[:len(warning_info)//2]
-        warning_info = [s for s in warning_info if 'Overfull' in s]
-
-        head_match = re.search(
-            r'\\documentclass(?:\[[^\]]*\])?\{beamer\}(.*?)\\begin{document}',
-            code,
-            flags=re.DOTALL
-        )
-        if not head_match:
-            return beamer_save_path.replace(".tex", ".pdf")
-
-        head = head_match.group(1)
-        head = head + "\n" + "\\setbeamerfont{caption}{size=\\scriptsize}"
-
-        frames = self.compute_frame_spans(code)
-        need_improve_list = []
-
-        for warning in warning_info:
-            line_match = re.search(r'(?<=\.tex:)\d+', warning)
-            if not line_match:
-                continue
-
-            num = int(line_match.group())
-            for idx, f in enumerate(frames):
-                if f["start_line"] <= num <= f["end_line"]:
-                    if "\\includegraphics" in f["text"]:
-                        need_improve_list.append(idx)
-                    break
-
-        need_improve_list = sorted(set(need_improve_list))
-
-        proposal_tmp_dir = path.join(path.dirname(beamer_save_path), "proposal_imgs")
-        os.makedirs(proposal_tmp_dir, exist_ok=True)
-
-        factors = [1, 0.75, 0.5, 0.25]
-        map_dic = {"A": 0, "B": 1, "C": 2, "D": 3}
-
-        for frame_idx in need_improve_list:
-            frame = frames[frame_idx]
-            proposal_imgs_path_list = []
-            proposal_code_list = []
-
-            for factor in factors:
-                proposal_code = self.scale_includegraphics_widths(frame["text"], factor)
-                proposal_code = self.add_small_after_blocks(proposal_code)
-                proposal_full_code = "\n".join([
-                    "\\documentclass{beamer}",
-                    head,
-                    "\\begin{document}",
-                    proposal_code,
-                    "\\end{document}"
-                ])
-
-                proposal_code_save_path = beamer_save_path.replace(".tex", f"_proposal_{factor}.tex")
-
-                with open(proposal_code_save_path, "w", encoding="utf-8") as f:
-                    f.write(proposal_full_code)
-
-                self.compile_tex(proposal_code_save_path)
-                img_path = self.pdf2img(
-                    proposal_code_save_path.replace(".tex", ".pdf"),
-                    proposal_tmp_dir
-                )
-                proposal_imgs_path_list.append(str(img_path))
-                proposal_code_list.append(proposal_code)
-
-            prompt_img_path = path.join(proposal_tmp_dir, "merged.png")
-            self.make_grid_with_labels(
-                proposal_imgs_path_list,
-                prompt_img_path,
-                rows=2,
-                cols=2
-            )
-
-            content = self.query_ollama_with_image(
-                model_name=self.vlm_model,
-                system_prompt="You are a slide layout selection assistant. Respond only in JSON like {\"choice\":\"A\"}.",
-                user_prompt="\n".join([template_prompt, "Here are the choices A, B, C, D"]),
-                image_path=prompt_img_path,
-            )
-
-            choice_str = self.extract_json_block(content)
-            try:
-                choice = json.loads(choice_str)
-                refined_code = proposal_code_list[map_dic[choice["choice"]]]
-            except Exception:
-                refined_code = proposal_code_list[0]
-
-            frames[frame_idx]["text"] = refined_code
-
-        new_code = ["\\documentclass{beamer}", head, "\\begin{document}"]
-        section = []
-        subsection = []
-
-        for frame in frames:
-            if len(frame["section"]) != 0 and frame["section"] not in section:
-                new_code.append("\\section{{{}}}".format(frame["section"]))
-                section.append(frame["section"])
-                subsection = []
-
-            if len(frame["subsection"]) != 0 and frame["subsection"] not in subsection:
-                new_code.append("\\subsection{{{}}}".format(frame["subsection"]))
-                subsection.append(frame["subsection"])
-
-            new_code.append(self.add_small_after_blocks(frame["text"]))
-
-        new_code.append("\\end{document}")
-        new_code = "\n".join(new_code)
-
-        new_code_save_path = beamer_save_path.replace(".tex", "_refined.tex")
-        with open(new_code_save_path, "w", encoding="utf-8") as f:
-            f.write(new_code)
-
-        self.compile_tex(new_code_save_path)
-        return new_code_save_path.replace(".tex", ".pdf")
-
-    def generate_beamer(self, latex_input_path, beamer_save_path, beamer_temp_name=None):
-        if not os.path.exists(latex_input_path):
-            raise FileNotFoundError(f"Latex input file not found: {latex_input_path}")
-
-        with open(self.slide_prompt_path, "r", encoding="utf-8") as f:
-            template_prompt = f.read()
-
-        with open(latex_input_path, "r", encoding="utf-8") as f:
-            tex_content = f.read()
-
-        tex_dir = os.path.dirname(latex_input_path)
-        root_dir = Path(tex_dir)
-        all_relative_paths = [
-            str(file.relative_to(root_dir))
-            for file in root_dir.rglob("*")
-            if file.is_file()
-        ]
-
-        if beamer_temp_name is None:
-            main_inference_prompt = [
-                template_prompt,
-                "This is the latex code for paper:",
-                tex_content,
-                "The file pathes in the project are:\n{}".format(str(all_relative_paths))
-            ]
-        else:
-            main_inference_prompt = [
-                template_prompt,
-                "This is the latex code for paper:",
-                tex_content,
-                "The file pathes in the project are:\n{}".format(str(all_relative_paths)),
-                "Use Beamer Theme: {}".format(beamer_temp_name)
-            ]
-
-        main_inference_prompt = "\n".join(map(str, main_inference_prompt))
-
-        content = self.query_ollama(
-            model_name=self.llm_model,
-            system_prompt="You are a Beamer slide generation assistant.",
-            user_prompt=main_inference_prompt,
-        )
-
-        code = self.extract_beamer_code(content)
-        if not isinstance(code, str):
-            print("Failed to generate beamer code.")
-            print(content)
-            return None
-
-        with open(beamer_save_path, "w", encoding="utf-8") as f:
-            f.write(code)
-
-        return code
-
-    def run(self, latex_input_path, beamer_save_path, beamer_temp_name=None, max_fix_attempts=10, improve=True):
-        print("Starting SlideBuilderAgent...\n")
-
-        code = self.generate_beamer(
-            latex_input_path=latex_input_path,
-            beamer_save_path=beamer_save_path,
-            beamer_temp_name=beamer_temp_name,
-        )
-
-        if code is None:
-            print("Slide generation failed.")
-            return None
-
-        feedback = self.compile_tex(beamer_save_path)
+        chunks, total_slides = self._extract_and_chunk_pdf(input_pdf_path, chunk_size=2)
+        print(f"Total slides found: {total_slides}. Broken into {len(chunks)} chunks for safe processing.")
 
         attempt = 0
-        while attempt < max_fix_attempts:
-            if "error" in feedback.lower():
-                print(f"\nFix attempt {attempt + 1} of {max_fix_attempts}")
-                error_info = re.findall(r'^(error: .+)', feedback, flags=re.MULTILINE)
+        while attempt < max_attempts:
+            print(f"\nAttempt {attempt + 1} of {max_attempts}")
+            all_latex_frames = []
 
-                fixed_code = self.correcte_error(code, error_info)
-                if not isinstance(fixed_code, str):
-                    print("Failed to fix code.")
-                    break
+            for i, chunk in enumerate(chunks):
+                slide_count = chunk.count("--- SLIDE")
+                print(f"Generating Beamer frames for batch {i+1}/{len(chunks)} (up to {slide_count} slides) via {self.model_name}...")
 
-                code = fixed_code
+                try:
+                    response = ollama.chat(
+                        model=self.model_name,
+                        messages=[
+                            {
+                                "role": "system",
+                                "content": SLIDES_LATEX_PROMPT
+                            },
+                            {"role": "user", "content": f"SLIDE TEXT CHUNK:\n{chunk}"}
+                        ],
+                        options={"num_predict": 8192}
+                    )
 
-                with open(beamer_save_path, "w", encoding="utf-8") as f:
-                    f.write(code)
+                    raw_output = response["message"]["content"].strip()
+                    clean_frames = self._clean_frames_output(raw_output)
+                    all_latex_frames.append(clean_frames)
 
-                feedback = self.compile_tex(beamer_save_path)
-                attempt += 1
+                except Exception as e:
+                    print(f"Error generating batch {i+1}: {e}. Skipping this chunk.")
+
+            print("Assembling all chunks into final LaTeX document...")
+            latex_code = self._assemble_full_document(all_latex_frames)
+
+            with open(tex_path, "w", encoding="utf-8") as f:
+                f.write(latex_code)
+
+            pdf_path = self._compile_to_pdf(tex_path, output_dir, output_filename)
+
+            if pdf_path:
+                print("Agent completed successfully.")
+
+                # cleanup intermediate directory (keep only .tex and .pdf)
+                for file in os.listdir(output_dir):
+                    file_path = os.path.join(output_dir, file)
+                    if os.path.isfile(file_path):
+                        ext = os.path.splitext(file)[1].lower()
+                        if ext not in [".tex", ".pdf"]:
+                            try:
+                                os.remove(file_path)
+                            except Exception as e:
+                                print(f"Could not delete {file}: {e}")
+
+                return pdf_path
+
+            attempt += 1
+            if attempt < max_attempts:
+                print("Retrying LaTeX generation due to compilation failure...\n")
+
+        print("Agent failed after multiple attempts.")
+        return None
+
+    def _extract_and_chunk_pdf(self, pdf_path, chunk_size=4):
+        chunks = []
+        current_chunk = []
+        total_pages = 0
+
+        with pdfplumber.open(pdf_path) as pdf:
+            total_pages = len(pdf.pages)
+
+            for i, page in enumerate(pdf.pages):
+                text = page.extract_text()
+                if not text:
+                    continue
+
+                lines = [line.strip() for line in text.splitlines() if line.strip()]
+                if not lines:
+                    continue
+
+                cleaned_lines = []
+
+                for line in lines:
+                    lower = line.lower()
+
+                    if "prepared by" in lower:
+                        continue
+                    if "@" in line:
+                        continue
+                    if line.isdigit():
+                        continue
+                    if re.fullmatch(r".*\b\d+\b", line) and len(line.split()) <= 4:
+                        continue
+                    if "copyright" in lower or line.startswith("©"):
+                        continue
+
+                    cleaned_lines.append(line)
+
+                if not cleaned_lines:
+                    continue
+
+                slide_title = cleaned_lines[0]
+                slide_body = cleaned_lines[1:]
+
+                if not slide_body:
+                    continue
+
+                slide_text = (
+                    f"--- SLIDE {i+1} ---\n"
+                    f"TITLE: {slide_title}\n"
+                    f"BODY:\n" + "\n".join(slide_body)
+                )
+
+                current_chunk.append(slide_text)
+
+                if len(current_chunk) == chunk_size:
+                    chunks.append("\n\n".join(current_chunk))
+                    current_chunk = []
+
+        if current_chunk:
+            chunks.append("\n\n".join(current_chunk))
+
+        return chunks, total_pages
+
+    def _clean_frames_output(self, text):
+        backticks = "`" * 3
+        text = re.sub(rf"{backticks}(?:latex)?", "", text)
+        text = text.replace(backticks, "")
+        text = text.strip()
+
+        begin_count = text.count(r"\begin{frame}")
+        end_count = text.count(r"\end{frame}")
+
+        if begin_count > end_count:
+            missing = begin_count - end_count
+            text += "\n\\end{frame}" * missing
+
+        return text
+
+    def _assemble_full_document(self, frames_list):
+        combined_frames = "\n\n".join(frames_list)
+
+        title_match = re.search(r'\\begin\{frame\}\{([^}]*)\}', combined_frames)
+        document_title = title_match.group(1).strip() if title_match else "Lecture Slides"
+
+        document = (
+            rf"""\documentclass{{beamer}}
+
+\title{{{document_title}}}
+
+\begin{{document}}
+
+\begin{{frame}}
+    \titlepage
+\end{{frame}}
+
+"""
+            + combined_frames
+            + r"""
+
+\end{document}
+"""
+        )
+
+        return document
+
+    def _compile_to_pdf(self, tex_path, output_dir, output_name):
+        print(f"Compiling {output_name}.pdf...")
+        pdf_path = os.path.join(output_dir, f"{output_name}.pdf")
+
+        try:
+            for _ in range(2):
+                result = subprocess.run(
+                    ["pdflatex", "-interaction=nonstopmode", f"-output-directory={output_dir}", tex_path],
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace"
+                )
+
+            if os.path.exists(pdf_path):
+                print(f"Success! View result: {pdf_path}")
+                if result.returncode != 0:
+                    print("Note: LaTeX finished with minor warnings, but the PDF was generated successfully.")
+                return pdf_path
             else:
-                break
+                print(f"PDF Compilation completely failed for {output_name}.")
+                print("--- LaTeX Error Tail ---")
+                if result.stdout:
+                    print("\n".join(result.stdout.splitlines()[-15:]))
+                return None
 
-        if improve:
-            final_pdf = self.improve_layout(code, feedback, beamer_save_path)
-        else:
-            final_pdf = beamer_save_path.replace(".tex", ".pdf")
-
-        print("\nSlideBuilderAgent completed successfully.")
-        print(f"Final PDF: {final_pdf}")
-        return final_pdf
+        except Exception as e:
+            print(f"Execution Error: {e}")
+            return None
 
 
 if __name__ == "__main__":
-    agent = SlideBuilderAgent(
-        llm_model="qwen2.5:7b",
-        vlm_model="qwen2.5:7b"
-    )
+    input_file = r"C:\Users\user\Desktop\Talexa\Data\input\slides\Introduction to AI.pdf"
 
-    final_pdf = agent.run(
-        latex_input_path="Data/output/lecture1.tex",   # output from LatexAgent
-        beamer_save_path="Data/output/lecture1_slides.tex",
-        beamer_temp_name=None,
-        max_fix_attempts=10,
-        improve=True
-    )
+    if os.path.exists(input_file):
 
+        agent = LatexAgent()
 
-    print("\nGenerated file:", final_pdf)
+        output_name = os.path.splitext(os.path.basename(input_file))[0]
+
+        agent.run(input_file, output_name)
+
+    else:
+        print(f"Input file not found at: {input_file}")
