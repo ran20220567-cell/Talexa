@@ -150,7 +150,7 @@ if __name__ == "__main__":
 
     result_path = agent.run(
         input_json_path=r"Data/input/lecture1_sentences.json",
-        output_json_path=r"C:\Users\user\Desktop\Talexa\Data\output\lecture1_sentences_arabic.json"
+        output_json_path=r"C:\Users\user\Desktop\Talexa\Data\Intermediate\lecture1_sentences_arabic.json"
     )
 
     print(f"\nFinal translated JSON file: {result_path}")
