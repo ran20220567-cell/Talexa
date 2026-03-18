@@ -1,12 +1,21 @@
-
-import sys
 import os
 import subprocess
+import sys
+from pathlib import Path
+
 import ollama
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from Prompts.latex_prompt import LATEX_PROMPT
+
+def _load_latex_prompt():
+    prompt_file = Path(__file__).resolve().parents[1] / "Prompts" / "textbook_latex_prompt,py.txt"
+    namespace = {}
+    exec(prompt_file.read_text(encoding="utf-8"), namespace)
+    return namespace["LATEX_PROMPT"]
+
+
+LATEX_PROMPT = _load_latex_prompt()
 
 
 class LatexAgent:
@@ -85,11 +94,26 @@ class LatexAgent:
             return False
 
 
-    def run(self, pdf_name, max_attempts=3):
+    def run(
+        self,
+        pdf_name=None,
+        summary_path=None,
+        output_tex_path=None,
+        max_attempts=3,
+        compile_pdf=False,
+    ):
+        if summary_path is None:
+            if not pdf_name:
+                raise ValueError("Either pdf_name or summary_path must be provided.")
+            summary_path = f"Data/output/{pdf_name}_summary.txt"
 
-        summary_path = f"Data/output/{pdf_name}_summary.txt"
-        pdf_name = os.path.splitext(os.path.basename(summary_path))[0].replace("_summary", "")
-        tex_output = f"Data/intermediate/{pdf_name}.tex"
+        if output_tex_path is None:
+            if pdf_name:
+                output_tex_path = f"Data/output/{pdf_name}.tex"
+            else:
+                summary_stem = Path(summary_path).stem
+                cleaned_stem = summary_stem.removeprefix("Summary_")
+                output_tex_path = f"Data/output/Latex_{cleaned_stem}.tex"
 
         attempt = 0
 
@@ -99,13 +123,17 @@ class LatexAgent:
 
             latex_code = self.generate_latex(summary_path)
 
-            self.save_latex(latex_code, tex_output)
+            self.save_latex(latex_code, output_tex_path)
 
-            success = self.compile_pdf(tex_output)
+            if not compile_pdf:
+                print("Agent completed successfully.")
+                return output_tex_path
+
+            success = self.compile_pdf(output_tex_path)
 
             if success:
                 print("Agent completed successfully.")
-                return tex_output
+                return output_tex_path
 
             attempt += 1
             print("Retrying LaTeX generation...\n")
