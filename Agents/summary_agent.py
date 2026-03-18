@@ -32,52 +32,86 @@ class SummaryAgent:
                 full_text += page_text
 
         doc.close()
-
-        pdf_name = os.path.splitext(os.path.basename(pdf_path))[0]
-        intermediate_dir = os.path.join(self.base_data_dir, "intermediate")
-        os.makedirs(intermediate_dir, exist_ok=True)
-
-        extracted_path = os.path.join(
-            intermediate_dir,
-            f"{pdf_name}_extracted.txt"
-        )
-
-        with open(extracted_path, "w", encoding="utf-8") as f:
-            f.write(full_text)
-
-        print(f"Extracted text saved to: {extracted_path}")
+        print("Text extracted successfully.")
 
         return full_text
 
 
-    def split_by_sections(self, text):
-       
+    def _is_likely_heading(self, line):
+        stripped = line.strip()
+        if not stripped:
+            return False
 
-        pattern = r'(?m)^\s*(\d+(?:\.\d+)+)\s+(.+?)\s*$'
-        matches = list(re.finditer(pattern, text))
+        if stripped.startswith("===== PAGE"):
+            return False
+
+        if re.fullmatch(r"\d+", stripped):
+            return False
+
+        # Numbered headings such as "1 Introduction" or "2.3 Security Models"
+        if re.fullmatch(r"\d+(?:\.\d+)*\.?\s+[A-Za-z].*", stripped):
+            return True
+
+        words = stripped.split()
+        word_count = len(words)
+        if word_count > 8:
+            return False
+
+        # Chapter titles like "CHAPTER 10"
+        if stripped.isupper() and word_count <= 4:
+            return True
+
+        # Short title-case headings like "People", "Processes", "Always Be Paranoid"
+        alpha_words = [word for word in words if re.search(r"[A-Za-z]", word)]
+        if not alpha_words:
+            return False
+
+        title_case_ratio = sum(
+            1 for word in alpha_words if word[:1].isupper()
+        ) / len(alpha_words)
+
+        return title_case_ratio >= 0.8
+
+    def split_by_sections(self, text):
+        lines = text.splitlines()
+        heading_indices = []
+
+        for idx, line in enumerate(lines):
+            if not self._is_likely_heading(line):
+                continue
+
+            prev_line = lines[idx - 1].strip() if idx > 0 else ""
+            next_line = lines[idx + 1].strip() if idx + 1 < len(lines) else ""
+
+            # A heading should usually be visually separated and followed by content.
+            if next_line.startswith("===== PAGE") or next_line == "":
+                continue
+
+            if prev_line and not prev_line.startswith("===== PAGE") and len(prev_line.split()) > 12:
+                continue
+
+            heading_indices.append(idx)
 
         print("\nDetected section headings:")
-        for i, m in enumerate(matches, 1):
-            print(f"{i}. {m.group(1)} {m.group(2)}")
+        for i, idx in enumerate(heading_indices, 1):
+            print(f"{i}. {lines[idx].strip()}")
 
-        if not matches:
+        if not heading_indices:
             return [text.strip()]
 
         sections = []
 
-        first_start = matches[0].start()
-        intro = text[:first_start].strip()
+        first_start = heading_indices[0]
+        intro = "\n".join(lines[:first_start]).strip()
         if intro:
             sections.append(intro)
 
-        for i, match in enumerate(matches):
-            start = match.start()
-            end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
-            section_text = text[start:end].strip()
+        for i, start_idx in enumerate(heading_indices):
+            end_idx = heading_indices[i + 1] if i + 1 < len(heading_indices) else len(lines)
+            section_text = "\n".join(lines[start_idx:end_idx]).strip()
             if section_text:
                 sections.append(section_text)
 
-        
         return sections
 
 
