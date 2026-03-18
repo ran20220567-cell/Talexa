@@ -1,409 +1,293 @@
 {
   "slide_1": {
+    "slide_number": 1,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_001.png",
     "items": [
       {
-        "sentence": "The Talexa Lecture Series is a notable academic event that introduces a series of lectures designed to explore significant topics in the field of artificial intelligence and machine learning.",
-        "focus": "Talexa Lecture Series"
+        "sentence": "We're beginning the Talexa Lecture Series, which serves as our starting point for technical education.",
+        "focus": "title 'Talexa Lecture Series'"
       },
       {
-        "sentence": "The title of the series, 'Generated Intelligence,' suggests a focus on the development and implications of artificial intelligence and machine learning.",
-        "focus": "Generated Intelligence"
-      },
-      {
-        "sentence": "The phrase 'Generated Intelligence' implies a detailed discussion on the creation and application of artificial intelligence and machine learning algorithms.",
-        "focus": "Generated Intelligence"
-      },
-      {
-        "sentence": "The lecture is scheduled for March 11, 2026, in Tokyo, indicating a specific date and location for this significant academic event.",
-        "focus": "March 11, 2026"
-      },
-      {
-        "sentence": "The mention of 'Talex' suggests that this lecture is part of a series organized by or associated with the organization Talex, which likely specializes in the field of artificial intelligence and machine learning.",
-        "focus": "Talex"
+        "sentence": "The session is scheduled for March 11, 2026.",
+        "focus": "text 'March 11, 2026'"
       }
     ]
   },
   "slide_2": {
+    "slide_number": 2,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_002.png",
     "items": [
       {
-        "sentence": "Let us begin by exploring the fundamental concept of Artificial Intelligence. The question we must ask is, 'What is Artificial Intelligence?'",
-        "focus": "title ''What is Artificial Intelligence? '"
+        "sentence": "Let's examine the core definition of Artificial Intelligence here. The 'Definition' section breaks it down into two key parts.",
+        "focus": "header 'Definition'"
       },
       {
-        "sentence": "The definition provided is pivotal, as it encapsulates the essence of AI as 'the capacity to learn and solve problems'.",
-        "focus": "phrase 'the capacity to learn and solve problems"
+        "sentence": "First, Intelligence is defined as 'the capacity to learn and solve problems'\u2014this is the fundamental ability of any intelligent system.",
+        "focus": "quotation 'the capacity to learn and solve problems' in the first bullet"
       },
       {
-        "sentence": "This definition is crucial because it distinguishes AI from natural intelligence, which is not the focus of our discussion.",
-        "focus": "phrase 'Not Natural"
-      },
-      {
-        "sentence": "It is important to note that AI is artificial, meaning it is a creation of human ingenuity designed to mimic human intelligence.",
-        "focus": "phrase 'Artificial"
-      },
-      {
-        "sentence": "The key takeaway is that AI is a technology that possesses the capacity to learn and solve problems, which represents a significant departure from traditional computing.",
-        "focus": "phrase 'the capacity to learn and solve problems"
+        "sentence": "Second, Artificial here means it's not natural\u2014it's human-engineered technology, which distinguishes it from natural intelligence.",
+        "focus": "text 'Artificial \u2192 Not Natural' in the second bullet"
       }
     ]
   },
   "slide_3": {
+    "slide_number": 3,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_003.png",
     "items": [
       {
-        "sentence": "Artificial Intelligence, as Webster's dictionary defines it, encompasses the capacity to learn and solve problems, which is the core essence of intelligence.",
-        "focus": "the capacity to learn and solve problems"
+        "sentence": "It then lists the key abilities that characterize intelligent systems, including solving novel problems and acting rationally.",
+        "focus": "the bullet points 'the ability to solve novel problems' and 'the ability to act rationally'"
       },
       {
-        "sentence": "This definition underscores the fundamental ability of AI to mimic human cognitive processes, which is pivotal for comprehending both its capabilities and its inherent limitations.",
-        "focus": "the ability to solve problems"
-      },
-      {
-        "sentence": "Further, it highlights the ability of AI to act like humans, a critical aspect of its design and application across various domains.",
-        "focus": "the ability to act like humans"
-      },
-      {
-        "sentence": "Artificial Intelligence, as defined here, involves the construction and comprehension of intelligent entities or agents, which is indispensable for the development of advanced AI systems.",
-        "focus": "Artificial Intelligence → build and understand intelligent entities or agents"
+        "sentence": "Finally, it explains artificial intelligence as the process of creating and understanding intelligent entities or agents.",
+        "focus": "Artificial Intelligence \u2192 build and understand intelligent entities or agents"
       }
     ]
   },
   "slide_4": {
+    "slide_number": 4,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_004.png",
     "items": [
       {
-        "sentence": "To introduce the concept of Artificial Intelligence, I will begin by posing a fundamental question: 'What is Artificial Intelligence?'",
-        "focus": "title ''What is Artificial Intelligence?'.'"
+        "sentence": "Artificial intelligence is fundamentally the branch of computer science focused on automating intelligent behavior, as Luger and Stublefield defined it in 1993.",
+        "focus": "The branch of computer science that is concerned with the automation of intelligent behavior. (Luger and Stublefield, 1993)"
       },
       {
-        "sentence": "We will then delve into a definition of Artificial Intelligence, which is crucial for understanding the field. This definition is provided by Luger and Eld, 1993, indicating its academic grounding.",
-        "focus": "phrase 'Luger and Eld, 1993"
-      },
-      {
-        "sentence": "The definition by Luger and Eld, 1993, states that Artificial Intelligence is concerned with automation and decision-making, aiming to mimic the capabilities of the human mind.",
-        "focus": "phrase 'decision-making and mimic the capabilities of the human mind"
-      },
-      {
-        "sentence": "This definition is further elaborated by another excerpt, which emphasizes that Artificial Intelligence involves teaching computers to solve problems and make decisions like humans do.",
-        "focus": "phrase 'teaching computers to problem-solving and decision-making capabilities of the human mind"
-      },
-      {
-        "sentence": "The importance of this concept lies in its foundational role in shaping how we understand and develop AI systems, which are increasingly integrated into our daily lives.",
-        "focus": "phrase 'teaching computers to problem-solving and decision-making capabilities of the human mind"
+        "sentence": "This definition also clarifies that AI works by leveraging computers and machines to mimic human problem-solving and decision-making capabilities.",
+        "focus": "AI leverages computers and machines to mimic the problem-solving and decision-making capabilities of the human mind."
       }
     ]
   },
   "slide_5": {
+    "slide_number": 5,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_005.png",
     "items": [
       {
-        "sentence": "We begin by introducing the Turing Test approach to evaluating artificial intelligence, which centers on the concept of machines performing tasks that require intelligence, thereby challenging the very essence of what it means to be intelligent.",
-        "focus": "The Turing Test approach to evaluating artificial intelligence"
+        "sentence": "Kurzweil's 1990 definition frames AI as creating machines that perform functions requiring intelligence when done by people.",
+        "focus": "quote 'The art of creating machines that perform functions that require intelligence when performed by people' (Kurzweil, 1990)"
       },
       {
-        "sentence": "This approach is grounded in the philosophical and technical challenges of defining artificial intelligence as the art of creating machines that can perform functions requiring intelligence, as articulated by Kurzweil in 1990.",
-        "focus": "The art of creating machines that perform functions that require intelligence when performed by people (Kurzweil, 1990)"
+        "sentence": "Rich and Knight's 1991 definition positions AI as the study of making computers excel where people currently do better.",
+        "focus": "quote 'The study of how to make computers do things at which, at the moment, people are better.' (Rich and Knight, 1991)"
       },
       {
-        "sentence": "We then transition to Rich's perspective, which emphasizes that AI is fundamentally about understanding how people compute, suggesting a deeper exploration of human cognition and its application in the design and operation of machines.",
-        "focus": "The how to makers do thing, at the n' (Rich a, 1991)"
-      },
-      {
-        "sentence": "At the heart of the Turing Test lies the necessity of providing a satisfactory operational definition of intelligence, which is essential for evaluating the efficacy of AI systems in mimicking human cognitive abilities.",
-        "focus": "Provide a satisfactory operational definition of intelligence"
-      },
-      {
-        "sentence": "The Turing Test is significant because it assesses whether a computer can convincingly mimic human responses to written questions, thereby determining if the computer can be considered intelligent.",
-        "focus": "A computer passes the test if a human interrogator, after posing some written questions, cannot tell whether the written responses come from a person or from a computer."
+        "sentence": "The Turing Test provides an operational definition: a computer passes if a human interrogator can't distinguish written responses from a person or a computer.",
+        "focus": "bullet 'A computer passes the test if a human interrogator, after posing some written questions, cannot tell whether the written responses come from a person or from a computer.'"
       }
     ]
   },
   "slide_6": {
+    "slide_number": 6,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_006.png",
     "items": [
       {
-        "sentence": "The Turing Test is a pivotal framework for evaluating artificial intelligence and its capacity to exhibit human-like intelligence.",
-        "focus": "title ''Acting Humanly: The Turing Test Approach'"
+        "sentence": "To achieve human-like behavior in the Turing test context, four critical capabilities are required.",
+        "focus": "Requirements for Turing Test"
       },
       {
-        "sentence": "To successfully pass the Turing Test, a machine must demonstrate the ability to communicate naturally and effectively, leveraging advanced natural language processing techniques.",
-        "focus": "phrase 'Natural language processing → enables it to communicate successfully"
+        "sentence": "Natural language processing enables the system to communicate successfully, handling the nuances of human language.",
+        "focus": "Natural language processing \u2192 enables it to communicate successfully"
       },
       {
-        "sentence": "The requirement for knowledge representation underscores the necessity for the machine to store and utilize information in a manner that closely mirrors human cognitive processes.",
-        "focus": "phrase 'Knowledge representation → stores what or hears"
+        "sentence": "Knowledge representation stores what the system knows or hears, acting as its memory.",
+        "focus": "Knowledge representation \u2192 stores what it knows or hears"
       },
       {
-        "sentence": "Adaptive reasoning is a critical component, as it enables the machine to draw conclusions based on the information it has been provided, thereby demonstrating its ability to reason flexibly and effectively.",
-        "focus": "phrase 'Adaptive reasoning"
+        "sentence": "Automated reasoning allows it to use stored information to answer questions and make new conclusions.",
+        "focus": "Automated reasoning \u2192 use the stored information to answer questions and draw new conclusions"
       },
       {
-        "sentence": "Machine learning is indispensable for the machine to adapt to new circumstances and detect patterns, which are essential aspects of human-like intelligence.",
-        "focus": "phrase 'Machine learning → adapt to new circumstances and detect and extrapolate patterns"
-      },
-      {
-        "sentence": "The Turing Test is significant because it provides a structured approach for evaluating artificial intelligence and its ability to mimic human behavior.",
-        "focus": "title ''Acting Humanly: The Turing Test Approach'"
+        "sentence": "Finally, machine learning helps the system adapt to new circumstances and detect patterns, which is essential for mimicking human flexibility.",
+        "focus": "Machine learning \u2192 adapt to new circumstances and detect and extrapolate patterns"
       }
     ]
   },
   "slide_7": {
+    "slide_number": 7,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_007.png",
     "items": [
       {
-        "sentence": "The Total Turing Test introduces a video signal to assess the subject's perceptual abilities, allowing the interrogator to evaluate the computer's capacity to perceive through the human-like 'throat' effect.",
-        "focus": "Total Turing Test"
+        "sentence": "This Total Turing Test approach incorporates a video signal to allow the interrogator to assess the subject's perceptual abilities in real time.",
+        "focus": "video signal"
       },
       {
-        "sentence": "This enhanced Turing Test incorporates computer vision to perceive objects, which is a critical aspect of simulating human-like interactions.",
-        "focus": "Computer vision → perceive objects"
+        "sentence": "It also provides a way for the interrogator to physically pass objects to the subject through the hatch, simulating real-world interaction.",
+        "focus": "through the hatch"
       },
       {
-        "sentence": "The inclusion of robotics to manipulate objects and move about is essential for the Total Turing Test, as it aims to replicate human-like actions and interactions.",
-        "focus": "Robotics → manipulate objects and move about"
-      },
-      {
-        "sentence": "The Total Turing Test is significant because it extends the original Turing Test by incorporating more human-like sensory and motor capabilities, thereby making the evaluation of artificial intelligence more comprehensive.",
-        "focus": "Total Turing Test"
+        "sentence": "To handle these tasks, the system requires computer vision to recognize objects and robotics to interact with the physical environment.",
+        "focus": "Computer vision \u2192 perceive objects and Robotics \u2192 manipulate objects"
       }
     ]
   },
   "slide_8": {
+    "slide_number": 8,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_008.png",
     "items": [
       {
-        "sentence": "We embark on the exciting new endeavor to imbue computers with the capacity to think, a paramount objective in the realm of artificial intelligence.",
-        "focus": "The phrase 'The exciting new effort to make computers think"
+        "sentence": "Here, we see a key definition: it's about creating machines with actual minds, as captured in this quote about the 'exciting new effort to make computers think...'.",
+        "focus": "quote 'The exciting new effort to make computers think . . . machines with minds, in the full and literal sense.'"
       },
       {
-        "sentence": "This endeavor aims to craft machines that possess minds, embodying the complete and literal essence of human intelligence.",
-        "focus": "The phrase 'machines with minds, in the full and literal sense"
-      },
-      {
-        "sentence": "The definition of artificial intelligence is introduced, emphasizing its core focus on problem-solving and decision-making activities.",
-        "focus": "The phrase 'AI is"
-      },
-      {
-        "sentence": "It is imperative that we comprehend the intricacies of human thought processes, as this understanding is essential for the development of AI.",
-        "focus": "The phrase 'We Must Have Some Way Of Determining How Humans Think"
-      },
-      {
-        "sentence": "Cognitive Science is delineated as an interdisciplinary field that integrates AI, psychology, linguistics, philosophy, and anthropology to model human cognition computationally.",
-        "focus": "The phrase 'Cognitive Science → Interdisciplinary field"
+        "sentence": "Cognitive modeling also requires understanding human cognition, as indicated here by the necessity to determine how humans think, and it's grounded in interdisciplinary fields like cognitive science.",
+        "focus": "bullet text 'We Must Have Some Way Of Determining How Humans Think' and 'Cognitive Science \u2192 Interdisciplinary field (AI, psychology, linguistics, philosophy, anthropology) that tries to construct computational theories of human cognition.'"
       }
     ]
   },
   "slide_9": {
+    "slide_number": 9,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_009.png",
     "items": [
       {
-        "sentence": "The Laws of Thought Approach, as introduced in this context, serves as a foundational concept in artificial intelligence, providing a systematic framework for rational thinking in machines.",
-        "focus": "title ''Thinking Rationally: Laws of Thought Approach'"
+        "sentence": "We're exploring the Laws of Thought Approach, which provides a framework for modeling rational thinking in AI systems.",
+        "focus": "title 'Thinking Rationally: Laws of Thought Approach'"
       },
       {
-        "sentence": "The first definition provided by Luger and Stubblefield (1993) encapsulates the essence of artificial intelligence as the automation of intelligent behavior, a critical aspect of this approach.",
-        "focus": "phrase 'The branch of computer science that is concerned with the automation of intelligent behavior."
+        "sentence": "The definition here clarifies that AI is fundamentally about automating intelligent behavior, as defined by Luger and Stublefield in their 1993 work.",
+        "focus": "quote 'The branch of computer science that is concerned with the automation of intelligent behavior.' (Luger and Stublefield, 1993)"
       },
       {
-        "sentence": "This approach emphasizes that artificial intelligence aims to replicate the problem-solving and decision-making abilities of the human mind, highlighting the complexity and ambition of this field.",
-        "focus": "phrase 'AI leverages computers and machines to mimic the problem-solving and decision-making capabilities of the human mind."
-      },
-      {
-        "sentence": "The second definition outlines the key components of AI: knowledge representation, automated reasoning, and machine learning, which are essential for the successful implementation of rational thinking.",
-        "focus": "phrase 'Knowledge representation → stores what it knows or hears"
-      },
-      {
-        "sentence": "The importance of knowledge representation is underscored as it forms the basis for AI to store and process information, which is crucial for the automation of intelligent behavior.",
-        "focus": "phrase 'Knowledge representation → stores what it knows or hears"
-      },
-      {
-        "sentence": "Automated reasoning is highlighted as the process by which AI uses stored information to answer questions and draw new conclusions, demonstrating the dynamic nature of AI systems.",
-        "focus": "phrase 'Automated reasoning → use the stored information to answer questions and to draw new conclusions"
-      },
-      {
-        "sentence": "Machine learning is described as the ability of AI to adapt to new circumstances and detect patterns, which is a key feature that distinguishes AI from traditional programming methods.",
-        "focus": "phrase 'Machine learning → adapt to new circumstances and detect and extrapolate patterns"
-      },
-      {
-        "sentence": "The Laws of Thought Approach, as presented in this context, is fundamentally about the systematic application of logical principles to achieve intelligent behavior in machines, which is a cornerstone of modern AI research.",
-        "focus": "title ''Thinking Rationally: Laws of Thought Approach'"
+        "sentence": "To achieve rational thinking, AI requires four key capabilities: natural language processing for communication, knowledge representation for storing information, automated reasoning for drawing conclusions, and machine learning for adapting to new circumstances.",
+        "focus": "header 'Requirements for Rational Thinking'"
       }
     ]
   },
   "slide_10": {
+    "slide_number": 10,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_010.png",
     "items": [
       {
-        "sentence": "We begin our exploration of the early beginnings of Artificial Intelligence, focusing on the period from 1940 to 1950, a critical era in the development of this field.",
-        "focus": "title ''Early Beginnings (1940-1950)'"
+        "sentence": "We're looking at the formative years of artificial intelligence from the 1940s to the 1950s, where foundational concepts were first developed.",
+        "focus": "title 'Early Beginnings (1940-1950)'"
       },
       {
-        "sentence": "In 1943, McCulloch and Pitts introduced a Boolean circuit model of the brain, a foundational concept in Artificial Intelligence that laid the groundwork for subsequent developments in the field.",
-        "focus": "phrase '1943: McCulloch Pitts: Boolean circuit model of brain"
+        "sentence": "The 1943 McCulloch and Pitts model introduced Boolean circuits as a mathematical approach to simulate brain functions, establishing a crucial foundation for neural networks.",
+        "focus": "bullet point mentioning '1943: McCulloch Pitts: Boolean circuit model of brain'"
       },
       {
-        "sentence": "The 1950s saw the emergence of early AI programs and the introduction of the term 'Artificial Intelligence', which began to gain traction and recognition in the scientific community.",
-        "focus": "phrase '1950s: Early"
+        "sentence": "Turing's 1950 paper 'Computing Machinery and Intelligence' ignited the debate about machine intelligence, leading to the creation of early programs like Samuel's checkers program.",
+        "focus": "bullet point mentioning '1950: Turing's 'Computing Machinery and Intelligence''"
       },
       {
-        "sentence": "The 1956 Dartmouth meeting was a pivotal moment, where the term 'Artificial Intelligence' was officially adopted, marking a significant milestone in the field and setting the stage for future advancements.",
-        "focus": "phrase '1956: Dartmouth meeting: “Artificial Intelligence” adopted"
-      },
-      {
-        "sentence": "The timeline concludes with the 1965 development of Robinson's complete algorithm for logical reasoning, a crucial advancement that further solidified the foundations of Artificial Intelligence.",
-        "focus": "phrase '1965: Robinson’s complete algorithm for logical reasoning"
+        "sentence": "The Dartmouth Conference in 1956 officially named the field 'Artificial Intelligence', bringing together the first researchers dedicated to studying this emerging discipline.",
+        "focus": "bullet point mentioning '1956: Dartmouth meeting: 'Artificial Intelligence' adopted'"
       }
     ]
   },
   "slide_11": {
+    "slide_number": 11,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_011.png",
     "items": [
       {
-        "sentence": "Explores the evolution of Artificial Intelligence from 1965 to 1990, emphasizing pivotal milestones and their implications.",
-        "focus": "History of Artificial Intelligence"
+        "sentence": "During 1970-1990, knowledge-based approaches emerged as the core methodology for building systems that could reason and learn.",
+        "focus": "bullet point '1970-1990: Knowledge-based approaches'"
       },
       {
-        "sentence": "In the 1970s, the introduction of AI-based applications and the early development of expert systems heralded the dawn of AI's practical applications.",
-        "focus": "1970: AI-based applications"
+        "sentence": "The early 1969\u201479 era saw foundational work on these systems, establishing how knowledge could be structured and utilized.",
+        "focus": "bullet point '1969\u201479: Early development of knowledge-based systems'"
       },
       {
-        "sentence": "The 1980s witnessed the ascendance of knowledge-based systems and the flourishing of expert systems, which were instrumental in propelling AI capabilities across diverse industries.",
-        "focus": "1980-88: Expert systems industry boom"
+        "sentence": "By 1980\u201488, expert systems experienced a major industry boom, with applications spreading across fields like healthcare and finance.",
+        "focus": "bullet point '1980\u201488: Expert systems industry booms'"
       },
       {
-        "sentence": "The period spanning from 1969 to 1979 was marked by the nascent development of knowledge systems, which laid the foundation for future advancements in AI.",
-        "focus": "1969-79: Early development of knowledge systems"
-      },
-      {
-        "sentence": "The 1988-93 period is distinguished by the 'AI Winter,' a phase characterized by a decline in AI research and funding, reflecting the challenges and setbacks encountered by the field during this time.",
-        "focus": "1988-93: Expert systems industry busts: “AI Winter”"
+        "sentence": "This growth eventually ended in 1988\u201493 with the 'AI Winter,' a period of reduced funding and interest in these systems.",
+        "focus": "bullet point '1988\u201493: Expert systems industry busts: 'AI Winter''"
       }
     ]
   },
   "slide_12": {
+    "slide_number": 12,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_012.png",
     "items": [
       {
-        "sentence": "This lecture will explore the modern developments in Artificial Intelligence since the 1990s, focusing on significant advancements and challenges that have emerged during this period.",
-        "focus": "title ''Modern Developments (1990-)'"
+        "sentence": "We're now shifting focus to the modern era of AI, which really took off starting in the 1990s.",
+        "focus": "Modern Developments (1990-)"
       },
       {
-        "sentence": "The resurgence of interest in AI, particularly in the realm of machine learning and deep learning, is a key theme of this discussion.",
-        "focus": "phrase 'resurgence"
+        "sentence": "A major trend was the comeback of probability theory, as researchers worked to model and manage uncertainty in complex systems.",
+        "focus": "Resurgence of probability, focus on uncertainty"
       },
       {
-        "sentence": "The lecture also delves into the focus on uncertainty and the development of probabilistic systems, which reflects a shift towards more complex and adaptive AI.",
-        "focus": "phrase 'uncertainty"
+        "sentence": "This period also brought significant advancements in technical depth, with more sophisticated methods emerging across AI subfields.",
+        "focus": "General increase in technical depth"
       },
       {
-        "sentence": "Furthermore, it will highlight the technical developments in AI, such as the significant increase in the depth of learning systems, which is essential for enhancing AI capabilities.",
-        "focus": "phrase 'increase in depth"
+        "sentence": "Scholars debated whether agents and learning systems would spark a new 'AI Spring'\u2014a potential renaissance of practical AI capabilities.",
+        "focus": "Agents and learning systems\u2026 'AI Spring'?"
       },
       {
-        "sentence": "The concluding segment, 'Where are we now?', invites a reflective perspective on the current state of AI, encouraging further discourse on its future directions.",
-        "focus": "phrase 'Where are we now?"
+        "sentence": "By the early 2000s, everyone was asking: where did this progress actually take us?",
+        "focus": "2000\u2014: Where are we now?"
       }
     ]
   },
   "slide_13": {
+    "slide_number": 13,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_013.png",
     "items": [
       {
-        "sentence": "This lecture introduces the question of what artificial intelligence can do today, highlighting its practical applications in various domains.",
-        "focus": "title ''What can Artificial Intelligence do today? '"
+        "sentence": "For instance, artificial intelligence powers robotic vehicles that navigate independently and speech recognition systems that interpret human voice commands in everyday devices.",
+        "focus": "bullet points 'Robotic vehicles' and 'Speech recognition'"
       },
       {
-        "sentence": "It begins by listing several applications, starting with robotic vehicles, which are crucial for automation in various industries.",
-        "focus": "phrase 'Robotic vehicles"
+        "sentence": "It also handles complex tasks like autonomous planning for schedules and achieving expert-level performance in game playing scenarios.",
+        "focus": "bullet points 'Autonomous planning and scheduling' and 'Game playing'"
       },
       {
-        "sentence": "Speech recognition is another application, essential for voice-activated technologies and user interfaces, demonstrating the integration of AI in everyday life.",
-        "focus": "phrase 'Speech recognition"
-      },
-      {
-        "sentence": "The lecture also mentions game playing and scheduling, showcasing AI's ability to handle complex tasks and games, which highlights its versatility in different sectors.",
-        "focus": "phrase 'Game playing"
-      },
-      {
-        "sentence": "Logistics planning and autonomous driving are highlighted, demonstrating AI's role in optimizing processes and enhancing safety in transportation and supply chain management.",
-        "focus": "phrase 'Logistics planning"
-      },
-      {
-        "sentence": "Robotics and machine translation are included, illustrating AI's impact on manufacturing and language translation, which are critical for global communication and production efficiency.",
-        "focus": "phrase 'Robotics"
-      },
-      {
-        "sentence": "The importance of these applications lies in their ability to transform industries and improve efficiency and accessibility, thereby enhancing the quality of life and economic productivity.",
-        "focus": "phrase 'Machine Translation"
+        "sentence": "Additionally, AI is critical for spam fighting, optimizing logistics planning, supporting robotics applications, and enabling machine translation for global communication.",
+        "focus": "bullet points 'Spam fighting', 'Logistics planning', 'Robotics', and 'Machine Translation'"
       }
     ]
   },
   "slide_14": {
+    "slide_number": 14,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_014.png",
     "items": [
       {
-        "sentence": "This lecture introduces the topic of artificial intelligence and its pervasive applications in everyday life, emphasizing its relevance and significant impact on our daily routines.",
-        "focus": "title ''Artificial Intelligence in Your Everyday Life'"
+        "sentence": "Artificial intelligence isn't just a futuristic concept\u2014it's already woven into the fabric of our daily routines, shaping how we interact with the world.",
+        "focus": "title 'Artificial Intelligence in Your Everyday Life'"
       },
       {
-        "sentence": "It specifically highlights the use of AI in personalized recommendations, a common application exemplified by services such as streaming platforms and social media, where the term 'Recommend' is frequently encountered.",
-        "focus": "phrase 'Recommend"
+        "sentence": "Let's examine the Applications section, which highlights practical areas where AI actively enhances our everyday experiences.",
+        "focus": "header 'Applications'"
       },
       {
-        "sentence": "The mention of 'Filters' in this context likely refers to content filtering or personalization in digital environments, such as news feeds or search results, indicating another significant application of AI.",
-        "focus": "phrase 'Filters"
+        "sentence": "For instance, filters\u2014these AI-driven tools curate content tailored to your preferences, like social media feeds or news aggregators.",
+        "focus": "bullet point 'Filters'"
       },
       {
-        "sentence": "The content of this lecture underscores the pervasive nature of artificial intelligence in modern life, demonstrating how it shapes our interactions with technology and information.",
-        "focus": "title ''Artificial Intelligence in Your Everyday Life'"
+        "sentence": "Similarly, recommendations use your behavior to predict and suggest products or content, such as streaming services or personalized shopping options.",
+        "focus": "bullet point 'Recommendations'"
       }
     ]
   },
   "slide_15": {
+    "slide_number": 15,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_015.png",
     "items": [
       {
-        "sentence": "The topic of Artificial Intelligence in everyday life is introduced, emphasizing its practical applications across various domains.",
-        "focus": "title ''Artificial Intelligence in Your Everyday Life'"
+        "sentence": "The first example is auto-complete features, which predict the next word as you type, using context and your typing history to save time.",
+        "focus": "bullet point 'Auto-Complete Sentences'"
       },
       {
-        "sentence": "Virtual assistants, a ubiquitous feature in modern life, are specifically highlighted as one of the key applications of AI.",
-        "focus": "phrase 'Virtual Assis"
-      },
-      {
-        "sentence": "Other applications such as auto-complete and voice command systems are also discussed, illustrating the integration of AI in digital interfaces.",
-        "focus": "phrase 'Auto-Comp"
-      },
-      {
-        "sentence": "The pervasive nature of AI is underscored by the inclusion of these applications, which significantly enhance user experience and efficiency in daily tasks.",
-        "focus": "phrase 'Voice Command"
-      },
-      {
-        "sentence": "Understanding these applications is crucial as it reflects the broader impact of AI on society and how it shapes our interactions with technology.",
-        "focus": "phrase 'Voice Command"
+        "sentence": "The second application, virtual assistants, respond to voice commands to help with tasks like setting reminders or playing music through natural language processing.",
+        "focus": "bullet point 'Virtual Assistant'"
       }
     ]
   },
   "slide_16": {
+    "slide_number": 16,
     "image": "Data/intermediate/lecture1_slidess/slides_latex_slides_refined_page_016.png",
     "items": [
       {
-        "sentence": "The lecture introduces the topic of artificial intelligence in everyday life, specifically focusing on its applications.",
-        "focus": "Artificial Intelligence in Your Everyday Life"
+        "sentence": "We're exploring how artificial intelligence is already woven into the fabric of our daily routines, making ordinary tasks more efficient and convenient.",
+        "focus": "title 'Artificial Intelligence in Your Everyday Life'"
       },
       {
-        "sentence": "It underscores the importance of understanding how artificial intelligence impacts our daily routines, which is crucial for both practical and academic insights.",
-        "focus": "Artificial Intelligence in Your Everyday Life"
-      },
-      {
-        "sentence": "The lecture suggests that artificial intelligence is not merely a theoretical concept but has real-world implications, making it essential to explore these applications.",
-        "focus": "Artificial Intelligence in Your Everyday Life"
-      },
-      {
-        "sentence": "By discussing artificial intelligence in our daily lives, the lecture aims to bridge the gap between theoretical knowledge and practical applications, thereby enhancing our understanding of its significance.",
-        "focus": "Artificial Intelligence in Your Everyday Life"
+        "sentence": "Take auto-parking as a clear example\u2014modern vehicles use AI to handle parking maneuvers with precision, reducing the stress and effort involved.",
+        "focus": "bullet point 'Auto-Parking'"
       }
     ]
   }
