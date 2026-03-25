@@ -1,0 +1,443 @@
+[
+  {
+    "start": 0.0,
+    "end": 4.11,
+    "cursor": [
+      207.0,
+      69.0
+    ],
+    "focus": "title 'Talexa Lecture Series'"
+  },
+  {
+    "start": 4.11,
+    "end": 8.22,
+    "cursor": [
+      496.0,
+      170.0
+    ],
+    "focus": "text 'March 11, 2026'"
+  },
+  {
+    "start": 8.22,
+    "end": 15.603,
+    "cursor": [
+      1024.0,
+      76.0
+    ],
+    "focus": "header 'Definition'"
+  },
+  {
+    "start": 15.603,
+    "end": 22.987,
+    "cursor": [
+      672.0,
+      192.0
+    ],
+    "focus": "quotation 'the capacity to learn and solve problems' in the first bullet"
+  },
+  {
+    "start": 22.987,
+    "end": 30.37,
+    "cursor": [
+      602.0,
+      379.0
+    ],
+    "focus": "text 'Artificial → Not Natural' in the second bullet"
+  },
+  {
+    "start": 30.37,
+    "end": 37.39,
+    "cursor": [
+      609.0,
+      472.0
+    ],
+    "focus": "the bullet points 'the ability to solve novel problems' and 'the ability to act rationally'"
+  },
+  {
+    "start": 37.39,
+    "end": 44.41,
+    "cursor": [
+      605.0,
+      271.0
+    ],
+    "focus": "Artificial Intelligence → build and understand intelligent entities or agents"
+  },
+  {
+    "start": 44.41,
+    "end": 52.97,
+    "cursor": [
+      379.0,
+      462.0
+    ],
+    "focus": "The branch of computer science that is concerned with the automation of intelligent behavior. (Luger and Stublefield, 1993)"
+  },
+  {
+    "start": 52.97,
+    "end": 61.53,
+    "cursor": [
+      604.0,
+      197.0
+    ],
+    "focus": "AI leverages computers and machines to mimic the problem-solving and decision-making capabilities of the human mind."
+  },
+  {
+    "start": 61.53,
+    "end": 69.007,
+    "cursor": [
+      467.0,
+      309.0
+    ],
+    "focus": "quote 'The art of creating machines that perform functions that require intelligence when performed by people' (Kurzweil, 1990)"
+  },
+  {
+    "start": 69.007,
+    "end": 76.483,
+    "cursor": [
+      476.0,
+      290.0
+    ],
+    "focus": "quote 'The study of how to make computers do things at which, at the moment, people are better.' (Rich and Knight, 1991)"
+  },
+  {
+    "start": 76.483,
+    "end": 83.96,
+    "cursor": [
+      605.0,
+      512.0
+    ],
+    "focus": "bullet 'A computer passes the test if a human interrogator, after posing some written questions, cannot tell whether the written responses come from a person or from a computer.'"
+  },
+  {
+    "start": 83.96,
+    "end": 90.066,
+    "cursor": [
+      609.0,
+      452.0
+    ],
+    "focus": "Requirements for Turing Test"
+  },
+  {
+    "start": 90.066,
+    "end": 96.172,
+    "cursor": [
+      496.0,
+      372.0
+    ],
+    "focus": "Natural language processing → enables it to communicate successfully"
+  },
+  {
+    "start": 96.172,
+    "end": 102.278,
+    "cursor": [
+      467.0,
+      214.0
+    ],
+    "focus": "Knowledge representation → stores what it knows or hears"
+  },
+  {
+    "start": 102.278,
+    "end": 108.384,
+    "cursor": [
+      496.0,
+      272.0
+    ],
+    "focus": "Automated reasoning → use the stored information to answer questions and draw new conclusions"
+  },
+  {
+    "start": 108.384,
+    "end": 114.49,
+    "cursor": [
+      496.0,
+      272.0
+    ],
+    "focus": "Machine learning → adapt to new circumstances and detect and extrapolate patterns"
+  },
+  {
+    "start": 114.49,
+    "end": 122.283,
+    "cursor": [
+      429.0,
+      76.0
+    ],
+    "focus": "video signal"
+  },
+  {
+    "start": 122.283,
+    "end": 130.077,
+    "cursor": [
+      607.0,
+      523.0
+    ],
+    "focus": "through the hatch"
+  },
+  {
+    "start": 130.077,
+    "end": 137.87,
+    "cursor": [
+      609.0,
+      217.0
+    ],
+    "focus": "Computer vision → perceive objects and Robotics → manipulate objects"
+  },
+  {
+    "start": 137.87,
+    "end": 147.995,
+    "cursor": [
+      602.0,
+      271.0
+    ],
+    "focus": "quote 'The exciting new effort to make computers think . . . machines with minds, in the full and literal sense.'"
+  },
+  {
+    "start": 147.995,
+    "end": 158.12,
+    "cursor": [
+      607.0,
+      491.0
+    ],
+    "focus": "bullet text 'We Must Have Some Way Of Determining How Humans Think' and 'Cognitive Science → Interdisciplinary field (AI, psychology, linguistics, philosophy, anthropology) that tries to construct computational theories of human cognition.'"
+  },
+  {
+    "start": 158.12,
+    "end": 167.97,
+    "cursor": [
+      106.0,
+      94.0
+    ],
+    "focus": "title 'Thinking Rationally: Laws of Thought Approach'"
+  },
+  {
+    "start": 167.97,
+    "end": 177.82,
+    "cursor": [
+      467.0,
+      291.0
+    ],
+    "focus": "quote 'The branch of computer science that is concerned with the automation of intelligent behavior.' (Luger and Stublefield, 1993)"
+  },
+  {
+    "start": 177.82,
+    "end": 187.67,
+    "cursor": [
+      302.0,
+      76.0
+    ],
+    "focus": "header 'Requirements for Rational Thinking'"
+  },
+  {
+    "start": 187.67,
+    "end": 197.018,
+    "cursor": [
+      672.0,
+      96.0
+    ],
+    "focus": "title 'Early Beginnings (1940-1950)'"
+  },
+  {
+    "start": 197.018,
+    "end": 206.365,
+    "cursor": [
+      467.0,
+      409.0
+    ],
+    "focus": "bullet point mentioning '1943: McCulloch Pitts: Boolean circuit model of brain'"
+  },
+  {
+    "start": 206.365,
+    "end": 215.713,
+    "cursor": [
+      672.0,
+      496.0
+    ],
+    "focus": "bullet point mentioning '1950: Turing's 'Computing Machinery and Intelligence''"
+  },
+  {
+    "start": 215.713,
+    "end": 225.06,
+    "cursor": [
+      496.0,
+      408.0
+    ],
+    "focus": "bullet point mentioning '1956: Dartmouth meeting: 'Artificial Intelligence' adopted'"
+  },
+  {
+    "start": 225.06,
+    "end": 232.137,
+    "cursor": [
+      426.0,
+      97.0
+    ],
+    "focus": "bullet point '1970-1990: Knowledge-based approaches'"
+  },
+  {
+    "start": 232.137,
+    "end": 239.215,
+    "cursor": [
+      674.0,
+      391.0
+    ],
+    "focus": "bullet point '1969—79: Early development of knowledge-based systems'"
+  },
+  {
+    "start": 239.215,
+    "end": 246.292,
+    "cursor": [
+      367.0,
+      309.0
+    ],
+    "focus": "bullet point '1980—88: Expert systems industry booms'"
+  },
+  {
+    "start": 246.292,
+    "end": 253.37,
+    "cursor": [
+      396.0,
+      204.0
+    ],
+    "focus": "bullet point '1988—93: Expert systems industry busts: 'AI Winter''"
+  },
+  {
+    "start": 253.37,
+    "end": 259.768,
+    "cursor": [
+      640.0,
+      720.0
+    ],
+    "focus": "Modern Developments (1990-)"
+  },
+  {
+    "start": 259.768,
+    "end": 266.166,
+    "cursor": [
+      496.0,
+      304.0
+    ],
+    "focus": "Resurgence of probability, focus on uncertainty"
+  },
+  {
+    "start": 266.166,
+    "end": 272.564,
+    "cursor": [
+      496.0,
+      272.0
+    ],
+    "focus": "General increase in technical depth"
+  },
+  {
+    "start": 272.564,
+    "end": 278.962,
+    "cursor": [
+      670.0,
+      290.0
+    ],
+    "focus": "Agents and learning systems… 'AI Spring'?"
+  },
+  {
+    "start": 278.962,
+    "end": 285.36,
+    "cursor": [
+      602.0,
+      592.0
+    ],
+    "focus": "2000—: Where are we now?"
+  },
+  {
+    "start": 285.36,
+    "end": 294.353,
+    "cursor": [
+      496.0,
+      304.0
+    ],
+    "focus": "bullet points 'Robotic vehicles' and 'Speech recognition'"
+  },
+  {
+    "start": 294.353,
+    "end": 303.347,
+    "cursor": [
+      603.0,
+      497.0
+    ],
+    "focus": "bullet points 'Autonomous planning and scheduling' and 'Game playing'"
+  },
+  {
+    "start": 303.347,
+    "end": 312.34,
+    "cursor": [
+      306.0,
+      192.0
+    ],
+    "focus": "bullet points 'Spam fighting', 'Logistics planning', 'Robotics', and 'Machine Translation'"
+  },
+  {
+    "start": 312.34,
+    "end": 320.228,
+    "cursor": [
+      405.0,
+      96.0
+    ],
+    "focus": "title 'Artificial Intelligence in Your Everyday Life'"
+  },
+  {
+    "start": 320.228,
+    "end": 328.115,
+    "cursor": [
+      206.0,
+      76.0
+    ],
+    "focus": "header 'Applications'"
+  },
+  {
+    "start": 328.115,
+    "end": 336.002,
+    "cursor": [
+      406.0,
+      217.0
+    ],
+    "focus": "bullet point 'Filters'"
+  },
+  {
+    "start": 336.003,
+    "end": 343.89,
+    "cursor": [
+      604.0,
+      792.0
+    ],
+    "focus": "bullet point 'Recommendations'"
+  },
+  {
+    "start": 343.89,
+    "end": 352.345,
+    "cursor": [
+      672.0,
+      416.0
+    ],
+    "focus": "bullet point 'Auto-Complete Sentences'"
+  },
+  {
+    "start": 352.345,
+    "end": 360.8,
+    "cursor": [
+      602.0,
+      391.0
+    ],
+    "focus": "bullet point 'Virtual Assistant'"
+  },
+  {
+    "start": 360.8,
+    "end": 369.135,
+    "cursor": [
+      192.0,
+      76.0
+    ],
+    "focus": "title 'Artificial Intelligence in Your Everyday Life'"
+  },
+  {
+    "start": 369.135,
+    "end": 377.47,
+    "cursor": [
+      720.0,
+      460.0
+    ],
+    "focus": "bullet point 'Auto-Parking'"
+  }
+]
