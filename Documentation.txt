@@ -209,6 +209,18 @@ The runtime also assumes:
 - required models are already pulled
 - a usable LaTeX compiler is installed
 
+**********************
+## External dependency
+
+The talking head agent expects Hallo2 to exist at:
+
+/workspace/hallo2
+
+and uses:
+/workspace/hallo2/env/bin/python
+/workspace/hallo2/scripts/inference_long.py
+/workspace/hallo2/configs/inference/long.yaml
+
 
 
 
