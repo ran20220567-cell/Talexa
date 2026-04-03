@@ -1,4 +1,4 @@
-SUBTITLE_CURSOR_PROMPT = r"""
+SUBTITLE_FOCUS_PROMPT = r"""
 You are Talexa's Lecture Explanation Agent.
 
 You are given ONE lecture slide image.
