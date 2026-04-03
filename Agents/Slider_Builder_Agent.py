@@ -30,9 +30,9 @@ class SlideBuilderAgent:
         self,
         llm_model="qwen2.5:7b",
         vlm_model="qwen3-vl",
-        slide_prompt_path="prompts/Slider_Builder_Prompt.py",
-        correct_prompt_path="prompts/slide_beamer_correct.txt",
-        select_proposal_prompt_path="prompts/select_proposal.txt",
+        slide_prompt_path=str(Path(__file__).resolve().parents[1] / "Prompts" / "Slider_Builder_Prompt.py"),
+        correct_prompt_path=str(Path(__file__).resolve().parents[1] / "Prompts" / "slide_beamer_correct.py"),
+        select_proposal_prompt_path=str(Path(__file__).resolve().parents[1] / "Prompts" / "select_proposal.py"),
         ollama_host=None,
         ollama_timeout=None,
     ):
