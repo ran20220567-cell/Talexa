@@ -8,6 +8,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
 from PIPELINE.session_manager import create_session
+from PIPELINE.preprocessing import preprocess_inputs
 from PIPELINE.run_slides_pipeline import run_slides_pipeline
 from PIPELINE.run_textbook_pipeline import run_textbook_pipeline
 
@@ -37,25 +38,10 @@ def _ask_language() -> str:
         print("Please type either 'english' or 'arabic'.")
 
 
-def _ask_required_path(label: str) -> str:
-    path_value = input(f"Enter the full path of the {label}: ").strip().strip('"')
-    if not path_value:
-        raise ValueError(f"A {label} path is required.")
-
-    return path_value
-
-
-def _ask_all_input_paths() -> tuple[str, str, str]:
-    pdf_path = _ask_required_path("input PDF")
-    audio_path = _ask_required_path("reference audio")
-    portrait_path = _ask_required_path("portrait image")
-    return pdf_path, audio_path, portrait_path
-
-
 def main() -> None:
     source_type = _ask_source_type()
     lecture_language = _ask_language()
-    pdf_path, audio_path, portrait_path = _ask_all_input_paths()
+    pdf_path, audio_path, portrait_path = preprocess_inputs(source_type)
     session = create_session(
         PROJECT_ROOT,
         pdf_file_path=pdf_path,
