@@ -8,10 +8,10 @@ from typing import List, Dict, Any, Optional
 import ollama
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Prompts.subtitle_cursor_prompt import SUBTITLE_CURSOR_PROMPT
+from Prompts.subtitle_focus_prompt import SUBTITLE_FOCUS_PROMPT
 
 
-class SubtitleCursorAgent:
+class SubtitleFocusAgent:
 
     def __init__(
         self,
@@ -22,7 +22,7 @@ class SubtitleCursorAgent:
         self.model_name = model_name
         self.output_path = output_path
         self.max_retries = max_retries
-        self.system_prompt = SUBTITLE_CURSOR_PROMPT.strip()
+        self.system_prompt = SUBTITLE_FOCUS_PROMPT.strip()
         self.client = ollama.Client()
 
         self.banned_patterns = [
@@ -222,5 +222,5 @@ class SubtitleCursorAgent:
 
 
 if __name__ == "__main__":
-    agent = SubtitleCursorAgent()
+    agent = SubtitleFocusAgent()
     agent.run("Data/intermediate/lecture1_slides")
