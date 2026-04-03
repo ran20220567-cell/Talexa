@@ -70,8 +70,7 @@ def build_textbook_pipeline(
         input_path = Path(state["input_path"])
         slide_base_name = f"SLIDES_{input_path.stem}"
         slide_builder_tex_path = Path(state["output_dir"]) / f"{slide_base_name}.tex"
-        slide_images_dir = Path(state["intermediate_dir"]) / f"SLIDES_IMAGES_{input_path.stem}"
-
+        slide_images_dir = Path("Data/intermediate") / f"SLIDES_{input_path.stem}_refined"
         raw_pdf_path = slide_builder_agent.run(
             latex_input_path=state["latex_path"],
             beamer_save_path=str(slide_builder_tex_path),
