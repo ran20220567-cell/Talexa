@@ -3,7 +3,6 @@ import re
 import json
 import asyncio
 from typing import List, Dict, Any, Optional
-
 import numpy as np
 import soundfile as sf
 from TTS.api import TTS
@@ -22,51 +21,43 @@ class SpeechAgent:
 
         os.makedirs(self.output_dir, exist_ok=True)
 
-        print("[Loading XTTS model...]")
+        print("[Loading XTTS-v2 model...]")
         self.tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
 
         print("Reference path:", self.reference_audio_path)
         print("Exists:", os.path.exists(self.reference_audio_path))
 
+        self.speaker_wav = self.reference_audio_path
+
     def clean_text(self, text: str) -> str:
         text = "" if text is None else str(text)
 
-        replacements = {
-            "\n": " ",
-            "•": " ",
-            "—": " ",
-            "–": " ",
-            "&": " و ",
-            "%": " بالمئة",
-        }
+        text = text.replace("\n", " ")
 
-        for old, new in replacements.items():
-            text = text.replace(old, new)
+        text = re.sub(r"[^\u0600-\u06FF0-9\s\.؟!،]", "", text)
+        text = re.sub(r"\s+", " ", text).strip()
 
-        # Keep Arabic + numbers + punctuation
-        text = re.sub(r"[^\u0600-\u06FF0-9\s\.؟!]", "", text)
+        return text
 
-        return re.sub(r"\s+", " ", text).strip()
-
-    def split_text(self, text: str, max_len: int = 140) -> List[str]:
-        sentences = re.split(r'[.!؟]+', text)
+    def split_text(self, text: str, max_len: int = 250) -> List[str]:
+        sentences = re.split(r"[.!؟]+", text)
 
         chunks = []
         current = ""
 
-        for sentence in sentences:
-            sentence = sentence.strip()
-            if not sentence:
+        for s in sentences:
+            s = s.strip()
+            if not s:
                 continue
 
-            if len(current) + len(sentence) < max_len:
-                current += " " + sentence
+            if len(current) + len(s) < max_len:
+                current += " " + s
             else:
-                if current.strip():
+                if current:
                     chunks.append(current.strip())
-                current = sentence
+                current = s
 
-        if current.strip():
+        if current:
             chunks.append(current.strip())
 
         return chunks
@@ -92,68 +83,55 @@ class SpeechAgent:
 
         return slides
 
+    def generate_chunk(self, chunk: str):
+        wav = self.tts.tts(
+            text=chunk,
+            language="ar",
+
+            speaker_wav=self.speaker_wav,
+
+            temperature=0.2,
+            length_penalty=1.0
+        )
+
+        return np.array(wav), 24000
+
     def generate_audio(self, text: str, out_path: str):
         text = self.clean_text(text)
 
         if not text.strip():
-            print("[Warning] Empty text, skipping...")
             return
 
         chunks = self.split_text(text)
 
-        chunks = [c.strip() for c in chunks if c.strip()]
-
-        if not chunks:
-            print("[Warning] No valid chunks, skipping...")
-            return
-
         all_audio = []
-        sample_rate = None
+        sr = 24000
 
         for i, chunk in enumerate(chunks):
-            temp_path = os.path.join(self.output_dir, f"temp_{i}.wav")
-
             print(f"  → Chunk {i+1}: {chunk[:60]}...")
 
-            self.tts.tts_to_file(
-                text=chunk,
-                speaker_wav=self.reference_audio_path,
-                language="ar",
-                temperature=0.3,
-                file_path=temp_path
-            )
-
-            audio, sr = sf.read(temp_path)
+            audio, sr = self.generate_chunk(chunk)
 
             if audio.ndim > 1:
                 audio = np.mean(audio, axis=1)
 
-            if sample_rate is None:
-                sample_rate = sr
-
             all_audio.append(audio)
 
-            pause = np.zeros(int(0.25 * sr))
-            all_audio.append(pause)
-
-            os.remove(temp_path)
+            # small pause to avoid merging artifacts
+            all_audio.append(np.zeros(int(0.15 * sr)))
 
         final_audio = np.concatenate(all_audio)
 
-        sf.write(out_path, final_audio.astype(np.float32), sample_rate)
+        sf.write(out_path, final_audio.astype(np.float32), sr)
 
     async def process_slide(self, slide: Dict[str, Any]):
         slide_id = slide["slide_id"]
-        text = slide["text"]
 
         print(f"\n[Slide {slide_id}] Generating audio...")
 
-        out_path = os.path.join(
-            self.output_dir,
-            f"slide_{slide_id}.wav"
-        )
+        out_path = os.path.join(self.output_dir, f"slide_{slide_id}.wav")
 
-        self.generate_audio(text, out_path)
+        self.generate_audio(slide["text"], out_path)
 
         print(f"[Saved] {out_path}")
 
@@ -168,10 +146,11 @@ class SpeechAgent:
         for slide in slides:
             await self.process_slide(slide)
 
-        print("[DONE] Speech generation complete.")
+        print("[DONE]")
 
     def run(self, limit_slides: Optional[int] = None):
         asyncio.run(self.run_async(limit_slides))
+
 
 if __name__ == "__main__":
     agent = SpeechAgent()
