@@ -6,6 +6,7 @@ from pathlib import Path
 import fitz
 import numpy as np
 import soundfile as sf
+from PIL import Image
 
 from PIPELINE.portrait_classifier import get_portrait_classifier
 
@@ -57,6 +58,10 @@ def _validate_source_document(source_path: str, source_type: str) -> Path:
     return resolved_path
 
 
+def validate_source_document(source_path: str, source_type: str) -> Path:
+    return _validate_source_document(source_path, source_type)
+
+
 def _read_audio_mono(audio_path: Path) -> tuple[np.ndarray, int]:
     audio, sample_rate = sf.read(audio_path, dtype="float32")
     if audio.ndim > 1:
@@ -94,6 +99,22 @@ def _store_processed_audio(audio: np.ndarray, sample_rate: int, source_path: Pat
     return output_path
 
 
+def _ensure_png_portrait(image_path: Path) -> Path:
+    with Image.open(image_path) as image:
+        if image.format == "PNG":
+            return image_path
+
+        output_dir = Path(tempfile.gettempdir()) / "talexa_preprocessing"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / f"{image_path.stem}_portrait.png"
+
+        converted_image = image.convert("RGBA") if "A" in image.getbands() else image.convert("RGB")
+        converted_image.save(output_path, format="PNG")
+
+    print(f"Portrait image was converted to PNG: {output_path}")
+    return output_path
+
+
 def _validate_and_prepare_audio(audio_path: str) -> Path:
     resolved_path = _resolve_existing_file(audio_path, "Audio")
     audio, sample_rate = _read_audio_mono(resolved_path)
@@ -126,10 +147,15 @@ def _validate_and_prepare_audio(audio_path: str) -> Path:
     return processed_path
 
 
+def validate_and_prepare_audio(audio_path: str) -> Path:
+    return _validate_and_prepare_audio(audio_path)
+
+
 def _validate_portrait_image(image_path: str) -> Path:
     resolved_path = _resolve_existing_file(image_path, "Portrait image")
+    png_path = _ensure_png_portrait(resolved_path)
     classifier = get_portrait_classifier()
-    classification = classifier.classify(resolved_path)
+    classification = classifier.classify(png_path)
 
     if not classification["is_valid"]:
         raise ValueError(
@@ -141,7 +167,11 @@ def _validate_portrait_image(image_path: str) -> Path:
         "Portrait image accepted by classifier "
         f"(confidence={classification['confidence']:.3f})."
     )
-    return resolved_path
+    return png_path
+
+
+def validate_portrait_image(image_path: str) -> Path:
+    return _validate_portrait_image(image_path)
 
 
 def preprocess_inputs(source_type: str) -> tuple[str, str, str]:
