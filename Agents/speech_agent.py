@@ -10,7 +10,7 @@ from pydub import AudioSegment
 class SpeechAgent:
     def __init__(
         self,
-        language: str = "ar",  
+        language: str = "arabic",  
         subtitles_json_path: str = "Data/intermediate/subtitles.json",
         arabic_json_path: str = "Data/intermediate/lecture1_sentences_arabic.json",
         output_dir: str = "Data/intermediate/speech_output",
@@ -19,7 +19,7 @@ class SpeechAgent:
     ):
         self.language = language.lower()
 
-        if self.language == "ar":
+        if self.language == "arabic":
             self.subtitles_json_path = arabic_json_path
         else:
             self.subtitles_json_path = subtitles_json_path
@@ -169,7 +169,7 @@ class SpeechAgent:
 
 if __name__ == "__main__":
     agent = SpeechAgent(
-        language="ar", 
+        language="arabic", 
         api_key = "sk_750e0572c5fc6d7cc3920d7ab0ee832dc1b209cd8ffe37ef",
         voice_id = "aoEJEWeOt9DoaRRQTNaB",
 
