@@ -10,26 +10,29 @@ from pydub import AudioSegment
 class SpeechAgent:
     def __init__(
         self,
+        language: str = "ar",  
         subtitles_json_path: str = "Data/intermediate/subtitles.json",
-        output_dir: str = "Data/intermediate/speech/lecture1",
+        arabic_json_path: str = "Data/intermediate/lecture1_sentences_arabic.json",
+        output_dir: str = "Data/intermediate/speech_output",
         api_key: str = "sk_750e0572c5fc6d7cc3920d7ab0ee832dc1b209cd8ffe37ef",
         voice_id: str = "aoEJEWeOt9DoaRRQTNaB",
     ):
-        self.subtitles_json_path = subtitles_json_path
-        self.output_dir = output_dir
+        self.language = language.lower()
 
+        if self.language == "ar":
+            self.subtitles_json_path = arabic_json_path
+        else:
+            self.subtitles_json_path = subtitles_json_path
+
+        self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
 
-        self.api_key = api_key or os.getenv("sk_750e0572c5fc6d7cc3920d7ab0ee832dc1b209cd8ffe37ef")
-        self.voice_id = voice_id or os.getenv("aoEJEWeOt9DoaRRQTNaB")
+        self.client = ElevenLabs(api_key=api_key)
+        self.voice_id = voice_id
 
-        if not self.api_key or not self.voice_id:
-            raise ValueError("API key or Voice ID missing")
-
-        self.client = ElevenLabs(api_key=self.api_key)
-
-        print("[ElevenLabs TTS Loaded]")
-        print("Output dir:", self.output_dir)
+        print(f"[Agent Ready | Language: {self.language}]")
+        print(f"[Using file: {self.subtitles_json_path}]")
+        
 
     def clean_text(self, text: str) -> str:
         """
@@ -165,5 +168,10 @@ class SpeechAgent:
         asyncio.run(self.run_async(limit_slides))
 
 if __name__ == "__main__":
-    agent = SpeechAgent()
+    agent = SpeechAgent(
+        language="ar", 
+        api_key = "sk_750e0572c5fc6d7cc3920d7ab0ee832dc1b209cd8ffe37ef",
+        voice_id = "aoEJEWeOt9DoaRRQTNaB",
+
+    )
     agent.run()
