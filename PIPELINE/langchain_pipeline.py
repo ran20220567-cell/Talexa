@@ -23,7 +23,7 @@ from Agents.Translation_agent import JsonTranslateAgent
 from Agents.cursor_agent import CursorAgent
 from Agents.slides_latex_agent import LatexAgent as SlidesLatexAgent
 from Agents.speech_agent import SpeechAgent
-from Agents.subtitle_focus_agent import SubtitleCursorAgent
+from Agents.subtitle_focus_agent import SubtitleFocusAgent
 from Agents.talking_head_agent import TalkingHeadAgent
 
 
