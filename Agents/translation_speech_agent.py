@@ -3,31 +3,28 @@ import re
 import json
 import asyncio
 from typing import List, Dict, Any, Optional
-import numpy as np
-import soundfile as sf
-from TTS.api import TTS
+from elevenlabs import ElevenLabs, save
+from pydub import AudioSegment
 
 
 class SpeechAgent:
     def __init__(
         self,
         subtitles_json_path: str = "Data/intermediate/subtitles.json",
-        reference_audio_path: str = "Data/input/reference_voice.wav",
         output_dir: str = "Data/intermediate/speech_arabic/lecture1",
+        api_key: str = "sk_750e0572c5fc6d7cc3920d7ab0ee832dc1b209cd8ffe37ef",
+        voice_id: str = "aoEJEWeOt9DoaRRQTNaB",
     ):
         self.subtitles_json_path = subtitles_json_path
-        self.reference_audio_path = os.path.abspath(reference_audio_path)
         self.output_dir = output_dir
 
         os.makedirs(self.output_dir, exist_ok=True)
 
-        print("[Loading XTTS-v2 model...]")
-        self.tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
+        self.client = ElevenLabs(api_key=api_key)
+        self.voice_id = voice_id
 
-        print("Reference path:", self.reference_audio_path)
-        print("Exists:", os.path.exists(self.reference_audio_path))
-
-        self.speaker_wav = self.reference_audio_path
+        print("[ElevenLabs TTS Loaded]")
+        print("Output dir:", self.output_dir)
 
     def clean_text(self, text: str) -> str:
         text = "" if text is None else str(text)
@@ -35,6 +32,7 @@ class SpeechAgent:
         text = text.replace("\n", " ")
 
         text = re.sub(r"[^\u0600-\u06FF0-9\s\.؟!،]", "", text)
+
         text = re.sub(r"\s+", " ", text).strip()
 
         return text
@@ -83,18 +81,14 @@ class SpeechAgent:
 
         return slides
 
-    def generate_chunk(self, chunk: str):
-        wav = self.tts.tts(
+    def generate_chunk(self, chunk: str, out_file: str):
+        audio = self.client.text_to_speech.convert(
+            voice_id=self.voice_id,
             text=chunk,
-            language="ar",
-
-            speaker_wav=self.speaker_wav,
-
-            temperature=0.2,
-            length_penalty=1.0
+            model_id="eleven_multilingual_v2"
         )
 
-        return np.array(wav), 24000
+        save(audio, out_file)
 
     def generate_audio(self, text: str, out_path: str):
         text = self.clean_text(text)
@@ -104,25 +98,29 @@ class SpeechAgent:
 
         chunks = self.split_text(text)
 
-        all_audio = []
-        sr = 24000
+        temp_files = []
 
         for i, chunk in enumerate(chunks):
-            print(f"  → Chunk {i+1}: {chunk[:60]}...")
+            print(f"  → Chunk {i+1}/{len(chunks)}")
 
-            audio, sr = self.generate_chunk(chunk)
+            tmp_file = os.path.join(self.output_dir, f"tmp_{i}.mp3")
 
-            if audio.ndim > 1:
-                audio = np.mean(audio, axis=1)
+            self.generate_chunk(chunk, tmp_file)
 
-            all_audio.append(audio)
+            temp_files.append(tmp_file)
 
-            # small pause to avoid merging artifacts
-            all_audio.append(np.zeros(int(0.15 * sr)))
+        combined = AudioSegment.empty()
 
-        final_audio = np.concatenate(all_audio)
+        for f in temp_files:
+            audio = AudioSegment.from_file(f)
+            combined += audio
+            combined += AudioSegment.silent(duration=150)
 
-        sf.write(out_path, final_audio.astype(np.float32), sr)
+        combined.export(out_path, format="wav")
+
+        for f in temp_files:
+            if os.path.exists(f):
+                os.remove(f)
 
     async def process_slide(self, slide: Dict[str, Any]):
         slide_id = slide["slide_id"]
@@ -153,5 +151,9 @@ class SpeechAgent:
 
 
 if __name__ == "__main__":
-    agent = SpeechAgent()
+    agent = SpeechAgent(
+        api_key="sk_750e0572c5fc6d7cc3920d7ab0ee832dc1b209cd8ffe37ef",
+        voice_id="aoEJEWeOt9DoaRRQTNaB"
+    )
+
     agent.run()
