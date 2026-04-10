@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 def _load_latex_prompt():
-    prompt_file = Path(__file__).resolve().parents[1] / "Prompts" / "textbook_latex_prompt,py.txt"
+    prompt_file = Path(__file__).resolve().parents[1] / "Prompts" / "latex_prompt.py"
     namespace = {}
     exec(prompt_file.read_text(encoding="utf-8"), namespace)
     return namespace["LATEX_PROMPT"]
