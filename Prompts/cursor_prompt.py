@@ -1,17 +1,18 @@
 PROMPT = """
-You are given a lecture slide image.
+You are given a presentation slide image.
 
-Your task is to locate the visual position of the following concept:
+Task:
+Find the EXACT location of the text: "{focus}"
 
-"{focus}"
+Rules:
+- Return ONLY one point (x, y)
+- The point must be at the CENTER of the text
+- Coordinates must match the image resolution
+- If multiple matches exist, choose the most prominent one
+- If unsure, choose the closest visible match
 
-Instructions:
-- Return ONLY coordinates
-- Format MUST be exactly: (x, y)
-- Do NOT explain anything
-- Do NOT return text
-- Coordinates must correspond to the center of the visual element
+Image size: {w}x{h}
 
-Example:
-(512, 384)
+Respond ONLY like:
+(x, y)
 """
