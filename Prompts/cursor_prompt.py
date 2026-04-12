@@ -7,12 +7,10 @@ Find the EXACT location of the text: "{focus}"
 Rules:
 - Return ONLY one point (x, y)
 - The point must be at the CENTER of the text
-- Coordinates must match the image resolution
+- Coordinates MUST be normalized between 0 and 1
+- (0,0) is top-left, (1,1) is bottom-right
 - If multiple matches exist, choose the most prominent one
-- If unsure, choose the closest visible match
-
-Image size: {w}x{h}
 
 Respond ONLY like:
-(x, y)
+(0.45, 0.32)
 """
