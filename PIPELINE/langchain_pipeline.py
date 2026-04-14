@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -12,10 +11,6 @@ except ImportError as exc:
         "Install a runtime with 'langchain-core' available before running this pipeline."
     ) from exc
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.append(str(PROJECT_ROOT))
-
 from Agents.summary_agent import SummaryAgent
 from Agents.Slider_Builder_Agent import SlideBuilderAgent
 from Agents.Textbook_latex_agent import LatexAgent
@@ -24,7 +19,7 @@ from Agents.cursor_agent import CursorAgent
 from Agents.slides_latex_agent import LatexAgent as SlidesLatexAgent
 from Agents.speech_agent import SpeechAgent
 from Agents.subtitle_focus_agent import SubtitleFocusAgent
-from Agents.talking_head_agent import TalkingHeadAgent
+from Agents.talking_head_agent import TalkingHeadApiAgent
 
 
 def _file_stem_from_state(state: dict[str, Any]) -> str:
@@ -35,7 +30,7 @@ def build_textbook_pipeline(
     summary_agent: SummaryAgent,
     latex_agent: LatexAgent,
     slide_builder_agent: SlideBuilderAgent,
-    subtitle_agent: SubtitleCursorAgent,
+    subtitle_agent: SubtitleFocusAgent,
     translation_agent: JsonTranslateAgent,
 ):
     def run_summary(state: dict[str, Any]) -> dict[str, Any]:
@@ -70,20 +65,20 @@ def build_textbook_pipeline(
         input_path = Path(state["input_path"])
         slide_base_name = f"SLIDES_{input_path.stem}"
         slide_builder_tex_path = Path(state["output_dir"]) / f"{slide_base_name}.tex"
-        slide_images_dir = Path("Data/intermediate") / f"SLIDES_{input_path.stem}_refined"
+        slide_images_dir = Path(state["intermediate_dir"]) / f"{slide_base_name}_refined"
+
         raw_pdf_path = slide_builder_agent.run(
             latex_input_path=state["latex_path"],
             beamer_save_path=str(slide_builder_tex_path),
             beamer_temp_name=None,
             max_fix_attempts=10,
             improve=True,
-            output_dir=str(Path(state["output_dir"])),
             intermediate_image_dir=str(slide_images_dir),
-            keep_final_tex=True,
         )
 
         final_pdf_target = Path(state["output_dir"]) / f"{slide_base_name}.pdf"
         raw_pdf_path = Path(raw_pdf_path)
+
         if raw_pdf_path.resolve() != final_pdf_target.resolve():
             if final_pdf_target.exists():
                 final_pdf_target.unlink()
@@ -166,15 +161,21 @@ def build_textbook_pipeline(
         input_stem = _file_stem_from_state(state)
         talking_head_output_dir = Path(state["intermediate_dir"]) / f"TALKING_HEAD_{input_stem}"
 
-        talking_head_agent = TalkingHeadAgent(
+        talking_head_agent = TalkingHeadApiAgent(
             source_image=state["portrait_image_path"],
-            speech_dir=state["audio_output_dir"],
+            audio_dir=state["audio_output_dir"],
             output_dir=str(talking_head_output_dir),
+            api_key=state.get("heygen_api_key"),
+            title=f"Talexa_{input_stem}",
         )
-        talking_head_agent.run()
+
+        result = talking_head_agent.run()
 
         updated_state = dict(state)
         updated_state["talking_head_output_dir"] = str(talking_head_output_dir)
+        updated_state["talking_head_video_path"] = result["final_video_path"]
+        updated_state["talking_head_video_id"] = result["video_id"]
+        updated_state["talking_head_video_url"] = result["video_url"]
         return updated_state
 
     return (
@@ -191,7 +192,7 @@ def build_textbook_pipeline(
 
 def build_slides_pipeline(
     slides_latex_agent: SlidesLatexAgent,
-    subtitle_agent: SubtitleCursorAgent,
+    subtitle_agent: SubtitleFocusAgent,
     translation_agent: JsonTranslateAgent,
 ):
     def run_slides_latex(state: dict[str, Any]) -> dict[str, Any]:
@@ -299,15 +300,21 @@ def build_slides_pipeline(
         input_stem = _file_stem_from_state(state)
         talking_head_output_dir = Path(state["intermediate_dir"]) / f"TALKING_HEAD_{input_stem}"
 
-        talking_head_agent = TalkingHeadAgent(
+        talking_head_agent = TalkingHeadApiAgent(
             source_image=state["portrait_image_path"],
-            speech_dir=state["audio_output_dir"],
+            audio_dir=state["audio_output_dir"],
             output_dir=str(talking_head_output_dir),
+            api_key=state.get("heygen_api_key"),
+            title=f"Talexa_{input_stem}",
         )
-        talking_head_agent.run()
+
+        result = talking_head_agent.run()
 
         updated_state = dict(state)
         updated_state["talking_head_output_dir"] = str(talking_head_output_dir)
+        updated_state["talking_head_video_path"] = result["final_video_path"]
+        updated_state["talking_head_video_id"] = result["video_id"]
+        updated_state["talking_head_video_url"] = result["video_url"]
         return updated_state
 
     return (
@@ -332,11 +339,8 @@ def create_textbook_pipeline(
     slide_builder_agent = SlideBuilderAgent(
         llm_model=model_name,
         vlm_model="qwen3-vl",
-        slide_prompt_path="Prompts/Slider_Builder_Prompt.py",
-        correct_prompt_path="Prompts/slide_beamer_correct.py",
-        select_proposal_prompt_path="Prompts/select_proposal.py",
     )
-    subtitle_agent = SubtitleCursorAgent(
+    subtitle_agent = SubtitleFocusAgent(
         model_name="qwen3-vl:8b",
     )
     translation_agent = JsonTranslateAgent(
@@ -357,7 +361,7 @@ def create_slides_pipeline(
     base_data_dir: str | Path | None = None,
 ):
     slides_latex_agent = SlidesLatexAgent(model_name=model_name)
-    subtitle_agent = SubtitleCursorAgent(
+    subtitle_agent = SubtitleFocusAgent(
         model_name="qwen3-vl:8b",
     )
     translation_agent = JsonTranslateAgent(
