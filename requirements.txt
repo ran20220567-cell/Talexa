@@ -1,0 +1,13 @@
+langchain
+langchain-core
+langchain-community
+requests
+httpx
+tqdm
+PyMuPDF
+pdfplumber
+Pillow
+pydub
+elevenlabs
+pydantic
+numpy
